@@ -158,7 +158,7 @@ expect(1).to.be.lessThan(3);
 ## Using with a test framework
 
 For example, if you create a test suite with
-[mocha](http://github.com/visionmedia.mocha).
+[mocha](http://github.com/visionmedia/mocha).
 
 Let's say we wanted to test the following program:
 

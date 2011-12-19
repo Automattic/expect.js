@@ -71,7 +71,7 @@
           var old = this[name];
           this[name] = function () {
             return old.apply(self, arguments);
-i         }
+          }
 
           for (var fn in Assertion.prototype) {
             if (Assertion.prototype.hasOwnProperty(fn) && fn != name) {

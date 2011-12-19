@@ -17,7 +17,7 @@
    * Exports version.
    */
 
-  expect.version = '0.1.0';
+  expect.version = '0.1.1';
 
   /**
    * Possible assertion flags.

@@ -16,7 +16,7 @@ expect(window).not.to.be.an(Image);
 
 - Cross-browser: works on IE6+, Firefox, Safari, Chrome, Opera.
 - Compatible with all test frameworks.
-- Node.JS ready (`require('expect')`).
+- Node.JS ready (`require('expect.js')`).
 - Standalone. Single global with no prototype extensions or shims.
 
 ## How to use
@@ -32,7 +32,7 @@ $ npm install expect
 Then:
 
 ```js
-var expect = require('expect');
+var expect = require('expect.js');
 ```
 
 ### Browser

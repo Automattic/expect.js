@@ -1,5 +1,5 @@
 {
-    "name": "expect"
+    "name": "expect.js"
   , "version": "0.1.0"
   , "description": "BDD style assertions for node and the browser."
   , "main": "./expect"

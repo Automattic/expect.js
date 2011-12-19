@@ -1,4 +1,3 @@
-
 # Expect
 
 Minimalistic BDD assertion toolkit based on
@@ -26,7 +25,7 @@ expect(window).not.to.be.an(Image);
 Install it with NPM or add it to your `package.json`:
 
 ```
-$ npm install expect
+$ npm install expect.js
 ```
 
 Then:

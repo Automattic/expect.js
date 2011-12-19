@@ -88,7 +88,7 @@ expect(person).to.be.a(Mammal);
 **match**: asserts `String` regular expression match
 
 ```js
-program.version.should.match(/[0-9]+\.[0-9]+\.[0-9]+/);
+expect(program.version).to.match(/[0-9]+\.[0-9]+\.[0-9]+/);
 ```
 
 **contain**: asserts indexOf for an array or string

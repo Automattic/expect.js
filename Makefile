@@ -9,6 +9,6 @@ test:
 		test/expect.js
 
 test-browser:
-	@./node_modules/.bin/serve test/
+	@./node_modules/.bin/serve .
 
 .PHONY: test

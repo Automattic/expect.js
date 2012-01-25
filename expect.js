@@ -449,6 +449,10 @@
       return Array.prototype.indexOf.call(arr, o, i);
     }
 
+    if (arr.length === undefined) {
+      return -1;
+    }
+
     for (var j = arr.length, i = i < 0 ? i + j < 0 ? 0 : i + j : i || 0
         ; i < j && arr[i] !== o; i++);
 

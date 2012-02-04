@@ -332,8 +332,15 @@
         throw new Error(i(this.obj) + ' has no property ' + i(name));
       }
     } else {
+      var hasProp;
+      try {
+        hasProp = name in this.obj
+      } catch (e) {
+        hasProp = undefined !== this.obj[name]
+      }
+      
       this.assert(
-          undefined !== this.obj[name]
+          hasProp
         , 'expected ' + i(this.obj) + ' to have a property ' + i(name)
         , 'expected ' + i(this.obj) + ' to not have a property ' + i(name));
     }

@@ -183,6 +183,24 @@
     return this;
   };
 
+
+  /**
+   * Checks if the obj almost equals another, optionally providing a max absolute difference.
+   *
+   * @api public
+   */
+  Assertion.prototype.approximately =
+  Assertion.prototype.approximatelyEqual =
+  Assertion.prototype.almostEqual = function (obj, maxDiff) {
+	var allowedDiff = maxDiff;
+	if(typeof(allowedDiff)=="undefined") {
+	  allowedDiff = 0.0001;
+	}
+	allowedDiff = Math.abs(allowedDiff);
+
+	return this.within(obj - allowedDiff, obj + allowedDiff);
+  };
+
   /**
    * Checks if the obj sortof equals another.
    *

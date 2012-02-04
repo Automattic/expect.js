@@ -195,6 +195,29 @@ describe('expect', function () {
     }, "expected 10 to be within 50..100");
   });
 
+  it('should test almostEqual(n)', function () {
+    expect(5.00001).to.almostEqual(5);
+	expect(4.99999).to.almostEqual(5);
+    expect(5.1).to.not.almostEqual(5);
+
+	expect(-5.00001).to.almostEqual(-5);
+    expect(-5.00001).to.not.almostEqual(5);
+
+	expect(5.1).to.almostEqual(5, 0.2);
+	expect(4.5).to.not.almostEqual(5, 0.2);
+	
+	expect(5.1).to.almostEqual(5, -0.2);
+	expect(4.9).to.almostEqual(5, -0.2);
+
+    err(function () {
+      expect(5.1).to.almostEqual(5);
+    }, "expected 5.1 to be within 4.9999..5.0001");
+
+    err(function () {
+      expect(4.9).to.almostEqual(5);
+    }, "expected 4.9 to be within 4.9999..5.0001");
+  });
+
   it('should test above(n)', function () {
     expect(5).to.be.above(2);
     expect(5).to.be.greaterThan(2);

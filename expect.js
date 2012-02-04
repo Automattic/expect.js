@@ -116,20 +116,39 @@
   };
 
   /**
-   * Asser that the function throws.
+   * Assert that the function throws.
+   *
+   * @param {Function|RegExp} callback, or regexp to match error string against
+   * @api public
    */
 
   Assertion.prototype.throwError =
   Assertion.prototype.throwException = function (fn) {
     expect(this.obj).to.be.a('function');
 
-    var thrown = false;
+    var thrown = false
+      , not = this.flags.not
 
     try {
       this.obj();
     } catch (e) {
-      fn && fn(e);
+      if ('function' == typeof fn) {
+        fn(e);
+      } else if ('object' == typeof fn) {
+        var subject = 'string' == typeof e ? e : e.message;
+        if (not) {
+          expect(subject).to.not.match(fn);
+        } else {
+          expect(subject).to.match(fn);
+        }
+      }
       thrown = true;
+    }
+
+    if ('object' == typeof fn && not) {
+      // in the presence of a matcher, ensure the `not` only applies to
+      // the matching.
+      this.flags.not = false; 
     }
 
     var name = this.obj.name || 'fn';

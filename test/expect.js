@@ -88,6 +88,10 @@ describe('expect', function () {
       throw 'aaa';
     }
 
+    function itThrowsMessage () {
+      throw new Error('tobi');
+    }
+
     var anonItThrows = function () {
       a.b.c;
     }
@@ -109,6 +113,13 @@ describe('expect', function () {
 
     expect(subject).to.be.an(Error);
 
+    expect(itThrowsMessage).to.throwException(/tobi/);
+    expect(itThrowsMessage).to.not.throwException(/test/);
+
+    err(function () {
+      expect(itThrowsMessage).to.throwException(/no match/);
+    }, 'expected \'tobi\' to match /no match/');
+
     var subject2;
 
     expect(itThrowsString).to.throwException(function (str) {
@@ -116,6 +127,13 @@ describe('expect', function () {
     });
 
     expect(subject2).to.be('aaa');
+
+    expect(itThrowsString).to.throwException(/aaa/);
+    expect(itThrowsString).to.not.throwException(/bbb/);
+
+    err(function () {
+      expect(itThrowsString).to.throwException(/no match/i);
+    }, 'expected \'aaa\' to match /no match/i');
 
     var called = false;
 

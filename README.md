@@ -128,10 +128,14 @@ expect({ a: 'b', c: 'd' }).to.only.have.keys(['a', 'c']);
 expect({ a: 'b', c: 'd' }).to.not.only.have.key('a');
 ```
 
-**throwException**: asserts that the `Function` throws or not when called
+**throwException**/**throwError**: asserts that the `Function` throws or not when called
 
 ```js
-expect(fn).to.throwException();
+expect(fn).to.throwError(); // synonym of throwException
+expect(fn).to.throwException(function (e) { // get the exception object
+  expect(e).to.be.a(SyntaxError);
+});
+expect(fn).to.throwException(/matches the exception message/);
 expect(fn2).to.not.throwException();
 ```
 

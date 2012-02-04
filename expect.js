@@ -333,8 +333,15 @@
         throw new Error(i(this.obj) + ' has no property ' + i(name));
       }
     } else {
+      var hasProp;
+      try {
+        hasProp = name in this.obj
+      } catch (e) {
+        hasProp = undefined !== this.obj[name]
+      }
+      
       this.assert(
-          undefined !== this.obj[name]
+          hasProp
         , 'expected ' + i(this.obj) + ' to have a property ' + i(name)
         , 'expected ' + i(this.obj) + ' to not have a property ' + i(name));
     }
@@ -470,6 +477,10 @@
   function indexOf (arr, o, i) {
     if (Array.prototype.indexOf) {
       return Array.prototype.indexOf.call(arr, o, i);
+    }
+
+    if (arr.length === undefined) {
+      return -1;
     }
 
     for (var j = arr.length, i = i < 0 ? i + j < 0 ? 0 : i + j : i || 0

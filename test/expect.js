@@ -308,14 +308,20 @@ describe('expect', function () {
   it('should test property(name)', function () {
     expect('test').to.have.property('length');
     expect(4).to.not.have.property('length');
+    expect({ length: undefined }).to.have.property('length');
 
     err(function () {
       expect('asd').to.have.property('foo');
     }, "expected 'asd' to have a property 'foo'");
+    
+    err(function () {
+      expect({ length: undefined }).to.not.have.property('length');
+    }, "expected { length: undefined } to not have a property 'length'");
   });
 
   it('should test property(name, val)', function () {
     expect('test').to.have.property('length', 4);
+    expect({ length: undefined }).to.have.property('length', undefined);
 
     err(function () {
       expect('asd').to.have.property('length', 4);
@@ -328,6 +334,10 @@ describe('expect', function () {
     err(function () {
       expect('asd').to.not.have.property('foo', 3);
     }, "'asd' has no property 'foo'");
+    
+    err(function () {
+      expect({ length: undefined }).to.not.have.property('length', undefined);
+    }, "expected { length: undefined } to not have a property 'length'");
   });
 
   it('should test own.property(name)', function () {

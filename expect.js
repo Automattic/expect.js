@@ -120,7 +120,7 @@
    */
 
   Assertion.prototype.throwError =
-  Assertion.prototype.throwException = function () {
+  Assertion.prototype.throwException = function (fn) {
     expect(this.obj).to.be.a('function');
 
     var thrown = false;
@@ -128,6 +128,7 @@
     try {
       this.obj();
     } catch (e) {
+      fn && fn(e);
       thrown = true;
     }
 

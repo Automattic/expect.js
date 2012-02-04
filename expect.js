@@ -119,7 +119,7 @@
    * Asser that the function throws.
    */
 
-  Assertion.prototype.throwException = function () {
+  Assertion.prototype.throwException = function (exceptionChecker) {
     expect(this.obj).to.be.a('function');
 
     var thrown = false;
@@ -127,7 +127,12 @@
     try {
       this.obj();
     } catch (e) {
-      thrown = true;
+      if (exceptionChecker) {
+        exceptionChecker(e);
+        return;
+      } else {
+        thrown = true;
+      }
     }
 
     var name = this.obj.name || 'fn';

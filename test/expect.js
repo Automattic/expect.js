@@ -128,6 +128,13 @@ describe('expect', function () {
         expect(anonItThrows).not.to.throwException();
       }, 'expected fn not to throw an exception');
     }
+    
+    expect(function() {
+      throw new TypeError('Text');
+    }).to.throwException(function(error) {
+      expect(error).to.be.a(TypeError);
+      expect(error.message).to.equal('Text');
+    });
   });
 
   it('should test arrays', function () {

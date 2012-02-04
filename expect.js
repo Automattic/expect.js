@@ -207,11 +207,17 @@
   Assertion.prototype.a =
   Assertion.prototype.an = function (type) {
     if ('string' == typeof type) {
+      // proper english in error msg
+      var n = /^[aeiou]/.test(type) ? 'n' : '';
+
       // typeof with support for 'array'
       this.assert(
-          'array' == type ? isArray(this.obj) : type == typeof this.obj
-        , 'expected ' + i(this.obj) + ' to be a ' + type
-        , 'expected ' + i(this.obj) + ' not to be a ' + type);
+          'array' == type ? isArray(this.obj) :
+            'object' == type
+              ? 'object' == typeof this.obj && null !== this.obj
+              : type == typeof this.obj
+        , 'expected ' + i(this.obj) + ' to be a' + n + ' ' + type
+        , 'expected ' + i(this.obj) + ' not to be a' + n + ' ' + type);
     } else {
       // instanceof
       var name = type.name || 'supplied constructor';

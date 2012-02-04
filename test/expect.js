@@ -285,8 +285,12 @@ describe('expect', function () {
     }, 'expected null to be an object');
 
     err(function () {
-      expect({ "a": "b" }).to.be.empty();
+      expect({ a: 'b' }).to.be.empty();
     }, 'expected { a: \'b\' } to be empty');
+
+    err(function () {
+      expect({ length: '0' }).to.be.empty();
+    }, 'expected { length: \'0\' } to be empty');
 
     err(function () {
       expect('asd').to.be.empty();

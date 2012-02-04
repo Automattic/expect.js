@@ -84,6 +84,10 @@ describe('expect', function () {
       a.b.c;
     }
 
+    function itThrowsString () {
+      throw 'aaa';
+    }
+
     var anonItThrows = function () {
       a.b.c;
     }
@@ -96,6 +100,30 @@ describe('expect', function () {
 
     expect(itThrows).to.throwException();
     expect(itWorks).to.not.throwException();
+
+    var subject;
+
+    expect(itThrows).to.throwException(function (e) {
+      subject = e;
+    });
+
+    expect(subject).to.be.an(Error);
+
+    var subject2;
+
+    expect(itThrowsString).to.throwException(function (str) {
+      subject2 = str;
+    });
+
+    expect(subject2).to.be('aaa');
+
+    var called = false;
+
+    expect(itWorks).to.not.throwError(function () {
+      called = true;
+    });
+
+    expect(called).to.be(false);
 
     err(function () {
       expect(5).to.throwException();

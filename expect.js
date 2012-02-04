@@ -144,9 +144,25 @@
    */
 
   Assertion.prototype.empty = function () {
-    expect(this.obj).to.have.property('length');
+    var expectation;
+
+    if ('object' == typeof this.obj && null !== this.obj && !isArray(this.obj)) {
+      if ('number' == typeof this.obj.length) {
+        expectation = !this.obj.length;
+      } else {
+        expectation = !keys(this.obj).length;
+      }
+    } else {
+      if ('string' != typeof this.obj) {
+        expect(this.obj).to.be.an('object');
+      }
+
+      expect(this.obj).to.have.property('length');
+      expectation = !this.obj.length;
+    }
+
     this.assert(
-        0 === this.obj.length
+        expectation
       , 'expected ' + i(this.obj) + ' to be empty'
       , 'expected ' + i(this.obj) + ' to not be empty');
     return this;

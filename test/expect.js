@@ -276,12 +276,17 @@ describe('expect', function () {
 
   it('should test empty', function () {
     expect('').to.be.empty();
+    expect({}).to.be.empty();
     expect([]).to.be.empty();
     expect({ length: 0 }).to.be.empty();
 
     err(function () {
-      expect({}).to.be.empty();
-    }, 'expected {} to have a property \'length\'');
+      expect(null).to.be.empty();
+    }, 'expected null to be an object');
+
+    err(function () {
+      expect({ "a": "b" }).to.be.empty();
+    }, 'expected { a: \'b\' } to be empty');
 
     err(function () {
       expect('asd').to.be.empty();
@@ -290,6 +295,10 @@ describe('expect', function () {
     err(function () {
       expect('').to.not.be.empty();
     }, "expected '' to not be empty");
+
+    err(function () {
+      expect({}).to.not.be.empty();
+    }, "expected {} to not be empty");
   });
 
   it('should test property(name)', function () {

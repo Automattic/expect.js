@@ -119,6 +119,7 @@
    * Asser that the function throws.
    */
 
+  Assertion.prototype.throwError =
   Assertion.prototype.throwException = function () {
     expect(this.obj).to.be.a('function');
 

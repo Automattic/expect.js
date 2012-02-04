@@ -133,6 +133,18 @@ describe('expect', function () {
   it('should test arrays', function () {
     expect([]).to.be.a('array');
     expect([]).to.be.an('array');
+
+    err(function () {
+      expect({}).to.be.an('array');
+    }, 'expected {} to be an array');
+  });
+
+  it('should test objects', function () {
+    expect({}).to.be.an('object');
+
+    err(function () {
+      expect(null).to.be.an('object');
+    }, 'expected null to be an object');
   });
 
   it('should test .equal()', function () {

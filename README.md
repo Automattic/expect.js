@@ -108,6 +108,9 @@ expect([1,2,3]).to.have.length(3);
 
 ```js
 expect([]).to.be.empty();
+expect({}).to.be.empty();
+expect({ length: 0, duck: 'typing' }).to.be.empty();
+expect({ my: 'object' }).to.not.be.empty();
 expect([1,2,3]).to.not.be.empty();
 ```
 

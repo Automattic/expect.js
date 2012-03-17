@@ -1,10 +1,7 @@
 
 (function (global, module) {
 
-  if ('undefined' == typeof module) {
-    var module = { exports: {} }
-      , exports = module.exports
-  }
+  var exports = module.exports;
 
   /**
    * Exports.
@@ -1197,6 +1194,5 @@
 
 })(
     this
-  , 'undefined' != typeof module ? module : {}
-  , 'undefined' != typeof exports ? exports : {}
+  , 'undefined' != typeof module ? module : {exports: {}}
 );

@@ -527,4 +527,10 @@ describe('expect', function () {
     }, "expected 5 to be below 4");
   });
 
+  it('should not blow up when trying to access `selection*` on input elements', function() {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    expect(input).to.have.property('type', 'file');
+  });
+
 });

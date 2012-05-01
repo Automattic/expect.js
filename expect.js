@@ -631,7 +631,13 @@
           name = '[' + key + ']';
         }
         if (!str) {
-          if (indexOf(seen, value[key]) < 0) {
+          if (value && value.nodeType &&
+            indexOf(['selectionStart', 'selectionEnd', 'selectionDirection'], key) >= 0) {
+            //chrome blows up here if value is an input that doesn't support
+            //one of these three properties (e.g. <input type="file"/>)
+            str = format('');
+          }
+          else if (indexOf(seen, value[key]) < 0) {
             if (recurseTimes === null) {
               str = format(value[key]);
             } else {

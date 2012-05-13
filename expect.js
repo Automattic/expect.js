@@ -466,7 +466,7 @@
    * @api public
    */
   Assertion.prototype.fail = function (msg) {
-    msg = msg != null ? msg : "explicit failure";
+    msg = msg || "explicit failure";
     this.assert(false, msg, msg);
     return this;
   };

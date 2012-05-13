@@ -167,6 +167,7 @@ expect(1).to.be.lessThan(3);
 ```js
 expect().fail()
 expect().fail("Custom failure message")
+```
 
 ## Using with a test framework
 

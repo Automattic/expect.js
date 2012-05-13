@@ -162,6 +162,12 @@ expect(0).to.be.below(3);
 expect(1).to.be.lessThan(3);
 ```
 
+**fail**: explicitly forces failure.
+
+```js
+expect().fail()
+expect().fail("Custom failure message")
+
 ## Using with a test framework
 
 For example, if you create a test suite with

@@ -102,6 +102,20 @@
     this.and = new Assertion(this.obj);
   };
 
+
+  /**
+  * Check if the value is not null and not undefined
+  * 
+  * @api public
+  */
+
+  Assertion.prototype.exist = function() {
+    this.assert(
+        !((null===this.obj)||(typeof(this.obj)=="undefined"))
+      , 'expected ' + i(this.obj) + ' to exist'
+      , 'expected ' + i(this.obj) + ' not to exist');
+  };
+
   /**
    * Check if the value is truthy
    *

@@ -8,7 +8,7 @@
     <script>mocha.setup('bdd');</script>
     <script src="/expect.js"></script>
     <script src="/test/expect.js"></script>
-    <script>window.onload = mocha.run;</script>
+    <script>window.onload = function () { mocha.run() };</script>
   </head>
   <body>
     <div id="mocha"></div>

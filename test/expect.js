@@ -532,15 +532,32 @@ describe('expect', function () {
     for (var i = 0; i < 20; i++) {
       elems.push(document.createElement('li'));
     }
-    
-    it('should not take more than 1s to test the truthiness of a 20 element NodeList', function () {
+
+    it('should not take more than 200ms to test the truthiness of a 20 element NodeList', function () {
       var s = (Date.now && Date.now()) || +new Date();
 
-      var elems = Array.prototype.slice.call(document.getElementsByTagName('li'), 0, 20);
       expect(elems).to.be.ok();
 
       var e = (Date.now && Date.now()) || +new Date();
-      expect(e - s).to.be.below(1000);
+      expect(e - s).to.be.below(200);
+    });
+
+    it('should test for propper Node inspection', function () {
+      var li = document.createElement('li');
+      li.appendChild(document.createElement('div'));
+
+      err(function () {
+        expect(li).not.to.be.ok();
+      }, 'expected <li>...<li/> to be falsy');
+
+      err(function () {
+        expect(document.createComment('foo')).to.not.be.ok();  
+      }, 'expected foo to be falsy');
+
+
+      err(function () {
+        expect(document.createTextNode('foo')).to.not.be.ok();  
+      }, 'expected foo to be falsy');
     });
   }
 });

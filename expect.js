@@ -556,6 +556,18 @@
         return stylize('null', 'null');
       }
 
+      // Escape early if it's a DOM Node.
+      if ('undefined' != typeof Node && value instanceof Node) {
+        if (value.nodeType === 1) {
+          var tag = value.tagName.toLowerCase();
+          return '<' + tag + '>' + 
+                 (value.children.length ? '...' : value.textContent) +
+                 '<' + tag + '/>';
+        } else {
+          return value.textContent;
+        }
+      }
+
       // Look up the keys of the object.
       var visible_keys = keys(value);
       var $keys = showHidden ? Object.getOwnPropertyNames(value) : visible_keys;

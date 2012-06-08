@@ -527,14 +527,20 @@ describe('expect', function () {
     }, "expected 5 to be below 4");
   });
 
-  it('should not take more than 1s to test the truthiness of a 10 element NodeList', function () {
-    var s = (Date.now && Date.now()) || +new Date();
+  if ('undefined' != typeof document) {
+    var elems = [];
+    for (var i = 0; i < 20; i++) {
+      elems.push(document.createElement('li'));
+    }
+    
+    it('should not take more than 1s to test the truthiness of a 20 element NodeList', function () {
+      var s = (Date.now && Date.now()) || +new Date();
 
-    // Make sure we are only checking 10 elements list.
-    var lis = Array.prototype.slice.call(document.getElementsByTagName('li'), 0, 20);
-    expect(lis).not.to.be.ok();
+      var elems = Array.prototype.slice.call(document.getElementsByTagName('li'), 0, 20);
+      expect(elems).to.be.ok();
 
-    var e = (Date.now && Date.now()) || +new Date();
-    expect(e - s).to.be.below(1000);
-  });
+      var e = (Date.now && Date.now()) || +new Date();
+      expect(e - s).to.be.below(1000);
+    });
+  }
 });

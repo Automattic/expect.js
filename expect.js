@@ -556,15 +556,15 @@
         return stylize('null', 'null');
       }
 
-      // Escape early if it's a DOM Node.
-      if ('undefined' != typeof Node && value instanceof Node) {
+      // Special treatment for DOM nodes.
+      if (isNode(value)) {
         if (value.nodeType === 1) {
           var tag = value.tagName.toLowerCase();
           return '<' + tag + '>' + 
-                 (value.children.length ? '...' : value.textContent) +
+                 (value.children.length ? '...' : getText(value)) +
                  '<' + tag + '/>';
         } else {
-          return value.textContent;
+          return getText(value);
         }
       }
 
@@ -892,6 +892,48 @@
          return false;
     }
     return true;
+  }
+
+  function isNode (object) {
+    return 'undefined' != typeof Node ? object instanceof Node :
+              'number' == typeof object.nodeType && 'string' == typeof object.nodeName;
+  }
+
+  // From Sizzle (MIT license)
+  function getText ( elem ) {
+    var i, node,
+    nodeType = elem.nodeType,
+    ret = "", 
+    rReturn = /\r\n/g;
+
+    if ( nodeType ) {
+      if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
+        // Use textContent || innerText for elements
+        if ( typeof elem.textContent === 'string' ) {
+          return elem.textContent;
+        } else if ( typeof elem.innerText === 'string' ) {
+          // Replace IE's carriage returns
+          return elem.innerText.replace( rReturn, '' );
+        } else {
+          // Traverse it's children
+          for ( elem = elem.firstChild; elem; elem = elem.nextSibling) {
+            ret += getText( elem );
+          }
+        }
+      } else if ( nodeType === 3 || nodeType === 4 ) {
+        return elem.nodeValue;
+      }
+    } else {
+
+      // If no nodeType, this is expected to be an array
+      for ( i = 0; (node = elem[i]); i++ ) {
+        // Do not traverse comment nodes
+        if ( node.nodeType !== 8 ) {
+          ret += getText( node );
+        }
+      }
+    }
+    return ret;
   }
 
   var json = (function () {

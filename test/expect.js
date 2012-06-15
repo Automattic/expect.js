@@ -551,11 +551,6 @@ describe('expect', function () {
       }, 'expected <li>...<li/> to be falsy');
 
       err(function () {
-        expect(document.createComment('foo')).to.not.be.ok();  
-      }, 'expected foo to be falsy');
-
-
-      err(function () {
         expect(document.createTextNode('foo')).to.not.be.ok();  
       }, 'expected foo to be falsy');
     });

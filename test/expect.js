@@ -527,4 +527,32 @@ describe('expect', function () {
     }, "expected 5 to be below 4");
   });
 
+  if ('undefined' != typeof document) {
+    var elems = [];
+    for (var i = 0; i < 20; i++) {
+      elems.push(document.createElement('li'));
+    }
+
+    it('should not take more than 200ms to test the truthiness of a 20 element NodeList', function () {
+      var s = (Date.now && Date.now()) || +new Date();
+
+      expect(elems).to.be.ok();
+
+      var e = (Date.now && Date.now()) || +new Date();
+      expect(e - s).to.be.below(200);
+    });
+
+    it('should test for propper Node inspection', function () {
+      var li = document.createElement('li');
+      li.appendChild(document.createElement('div'));
+
+      err(function () {
+        expect(li).not.to.be.ok();
+      }, 'expected <li>...<li/> to be falsy');
+
+      err(function () {
+        expect(document.createTextNode('foo')).to.not.be.ok();  
+      }, 'expected foo to be falsy');
+    });
+  }
 });

@@ -537,7 +537,7 @@
         object.nodeType === 1 &&
         typeof object.nodeName === 'string';
     }
-  }
+  };
 
   /**
    * Inspects an object.
@@ -554,10 +554,6 @@
     };
 
     function format (value, recurseTimes) {
-      if (isDOMElement(value)) {
-        return getOuterHTML(value);
-      }
-      
       // Provide a hook for user-specified inspect functions.
       // Check that value is an object with an inspect function on it
       if (value && typeof value.inspect === 'function' &&
@@ -588,6 +584,10 @@
       // For some reason typeof null is "object", so special case here.
       if (value === null) {
         return stylize('null', 'null');
+      }
+
+      if (isDOMElement(value)) {
+        return getOuterHTML(value);
       }
 
       // Look up the keys of the object.

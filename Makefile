@@ -3,7 +3,7 @@ REPORTER = dot
 
 test:
 	@./node_modules/.bin/mocha \
-		--require $(shell pwd)/test/common \
+		--require ./test/common \
 		--reporter $(REPORTER) \
 		--growl \
 		test/expect.js

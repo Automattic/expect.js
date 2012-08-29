@@ -459,6 +459,17 @@
 
     return this;
   };
+  /**
+   * Assert a failure.
+   *
+   * @param {String ...} custom message
+   * @api public
+   */
+  Assertion.prototype.fail = function (msg) {
+    msg = msg || "explicit failure";
+    this.assert(false, msg, msg);
+    return this;
+  };
 
   /**
    * Function bind implementation.

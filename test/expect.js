@@ -527,4 +527,16 @@ describe('expect', function () {
     }, "expected 5 to be below 4");
   });
 
+  it('should fail with `fail`', function () {
+    err(function () {
+        expect().fail();
+    }, "explicit failure");
+  });
+
+  it('should fail with `fail` and custom message', function () {
+    err(function () {
+        expect().fail("explicit failure with message");
+    }, "explicit failure with message");
+  });
+
 });

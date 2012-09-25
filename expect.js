@@ -91,12 +91,18 @@
    * @api private
    */
 
-  Assertion.prototype.assert = function (truth, msg, error) {
+  Assertion.prototype.assert = function (truth, msg, error, expected) {
     var msg = this.flags.not ? error : msg
-      , ok = this.flags.not ? !truth : truth;
+      , ok = this.flags.not ? !truth : truth
+      , err;
 
     if (!ok) {
-      throw new Error(msg.call(this));
+      err = new Error(msg.call(this));
+      if (arguments.length > 3) {
+        err.actual = this.obj
+        err.expected = expected
+      }
+      throw err
     }
 
     this.and = new Assertion(this.obj);
@@ -200,7 +206,8 @@
     this.assert(
         obj === this.obj
       , function(){ return 'expected ' + i(this.obj) + ' to equal ' + i(obj) }
-      , function(){ return 'expected ' + i(this.obj) + ' to not equal ' + i(obj) });
+      , function(){ return 'expected ' + i(this.obj) + ' to not equal ' + i(obj) }
+      , obj);
     return this;
   };
 
@@ -214,7 +221,8 @@
     this.assert(
         expect.eql(obj, this.obj)
       , function(){ return 'expected ' + i(this.obj) + ' to sort of equal ' + i(obj) }
-      , function(){ return 'expected ' + i(this.obj) + ' to sort of not equal ' + i(obj) });
+      , function(){ return 'expected ' + i(this.obj) + ' to sort of not equal ' + i(obj) }
+      , obj);
     return this;
   };
 

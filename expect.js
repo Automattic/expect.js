@@ -99,11 +99,11 @@
     if (!ok) {
       err = new Error(msg.call(this));
       if (arguments.length > 3) {
-        err.actual = this.obj
-        err.expected = expected
-        err.showDiff = true
+        err.actual = this.obj;
+        err.expected = expected;
+        err.showDiff = true;
       }
-      throw err
+      throw err;
     }
 
     this.and = new Assertion(this.obj);

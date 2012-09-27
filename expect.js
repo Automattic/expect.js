@@ -101,6 +101,7 @@
       if (arguments.length > 3) {
         err.actual = this.obj
         err.expected = expected
+        err.showDiff = true
       }
       throw err
     }
@@ -206,8 +207,7 @@
     this.assert(
         obj === this.obj
       , function(){ return 'expected ' + i(this.obj) + ' to equal ' + i(obj) }
-      , function(){ return 'expected ' + i(this.obj) + ' to not equal ' + i(obj) }
-      , obj);
+      , function(){ return 'expected ' + i(this.obj) + ' to not equal ' + i(obj) });
     return this;
   };
 

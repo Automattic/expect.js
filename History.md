@@ -1,4 +1,17 @@
 
+0.2.0 / 2012-10-19
+==================
+
+  * fix isRegExp bug in some edge cases
+  * add closure to all assertion messages deferring costly inspects
+    until there is actually a failure
+  * fix `make test` for recent mochas
+  * add inspect() case for DOM elements
+  * relax failure msg null check
+  * add explicit failure through `expect().fail()`
+  * clarified all `empty` functionality in README example
+  * added docs for throwException fn/regexp signatures
+
 0.1.2 / 2012-02-04
 ==================
 

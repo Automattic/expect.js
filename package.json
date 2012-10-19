@@ -1,6 +1,6 @@
 {
     "name": "expect.js"
-  , "version": "0.1.2"
+  , "version": "0.2.0"
   , "description": "BDD style assertions for node and the browser."
   , "main": "./expect"
   , "devDependencies": {

@@ -890,6 +890,17 @@
     return Object.prototype.toString.call(object) == '[object Arguments]';
   }
 
+  // Returns true if it is a DOM node
+  // http://stackoverflow.com/questions/384286/javascript-isdom-how-do-you-check-if-a-javascript-object-is-a-dom-object
+  function isNode (object) {
+    return (
+      typeof Node === 'object' ? object instanceof Node :
+        object && typeof object === 'object' &&
+          typeof object.nodeType === 'number' &&
+          typeof object.nodeName === 'string'
+      );
+  }
+
   function objEquiv (a, b) {
     if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
       return false;
@@ -904,6 +915,19 @@
       a = pSlice.call(a);
       b = pSlice.call(b);
       return expect.eql(a, b);
+    }
+    if (isNode(a)) {
+      if (!isNode(b)) {
+        return false;
+      }
+      // be strict: don't ensure hasOwnProperty because
+      // nodes don't own their properties
+      for (var prop in a) {
+        if (b[prop] !== a[prop]) {
+          return false;
+        }
+      }
+      return true;
     }
     try{
       var ka = keys(a),

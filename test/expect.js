@@ -23,6 +23,12 @@ var nameSupported;
 })();
 
 /**
+ * Detection of browser environment.
+ */
+
+var isBrowser = document && 'createElement' in document;
+
+/**
  * Tests.
  */
 
@@ -292,7 +298,16 @@ describe('expect', function () {
     err(function () {
       expect(4).to.eql(3);
     }, 'expected 4 to sort of equal 3');
+
   });
+
+  if (isBrowser) {
+    it('should test eql for dom nodes if in a browser', function () {
+      var textNode = document.createTextNode('a');
+      var unknownNode = document.createElement('c');
+      expect(textNode).to.not.eql(unknownNode);
+    });
+  }
 
   it('should test equal(val)', function () {
     expect('test').to.equal('test');
@@ -359,7 +374,7 @@ describe('expect', function () {
     err(function () {
       expect('asd').to.have.property('foo');
     }, "expected 'asd' to have a property 'foo'");
-    
+
     err(function () {
       expect({ length: undefined }).to.not.have.property('length');
     }, "expected { length: undefined } to not have a property 'length'");
@@ -380,7 +395,7 @@ describe('expect', function () {
     err(function () {
       expect('asd').to.not.have.property('foo', 3);
     }, "'asd' has no property 'foo'");
-    
+
     err(function () {
       expect({ length: undefined }).to.not.have.property('length', undefined);
     }, "expected { length: undefined } to not have a property 'length'");

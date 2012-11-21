@@ -23,7 +23,7 @@
    * Possible assertion flags.
    */
 
-  var flags = {
+  var flags = expect.flags = {
       not: ['to', 'be', 'have', 'include', 'only']
     , to: ['be', 'have', 'include', 'only', 'not']
     , only: ['have']
@@ -69,13 +69,21 @@
         if ('function' == typeof Assertion.prototype[name]) {
           // clone the function, make sure we dont touch the prot reference
           var old = this[name];
-          this[name] = function () {
-            return old.apply(self, arguments);
-          }
+          (function (old) {
+            self[name] = function () {
+              return old.apply(self, arguments);
+            }
+          })(old);
 
           for (var fn in Assertion.prototype) {
             if (Assertion.prototype.hasOwnProperty(fn) && fn != name) {
               this[name][fn] = bind(assertion[fn], assertion);
+            }
+          }
+          // keep the assertion chain, need flags and obj
+          for (var fn2 in assertion) {
+            if (assertion.hasOwnProperty(fn2)) {
+                this[name][fn2] = assertion[fn2];
             }
           }
         } else {

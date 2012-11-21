@@ -69,9 +69,11 @@
         if ('function' == typeof Assertion.prototype[name]) {
           // clone the function, make sure we dont touch the prot reference
           var old = this[name];
-          this[name] = function () {
-            return old.apply(self, arguments);
-          }
+          (function (old) {
+            self[name] = function () {
+              return old.apply(self, arguments);
+            }
+          })(old);
 
           for (var fn in Assertion.prototype) {
             if (Assertion.prototype.hasOwnProperty(fn) && fn != name) {

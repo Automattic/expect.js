@@ -69,7 +69,7 @@ expect({ a: 'b' }).to.eql({ a: 'b' });
 expect(1).to.eql('1');
 ```
 
-**a**/**an**: asserts `typeof` with support for `array` type and `instanceof`
+**a** / **an**: asserts `typeof` with support for `array` type and `instanceof`
 
 ```js
 // typeof with optional `array`
@@ -122,7 +122,7 @@ expect(window).to.have.property('expect', expect)
 expect({a: 'b'}).to.have.property('a');
 ```
 
-**key**/**keys**: asserts the presence of a key. Supports the `only` modifier
+**key** / **keys**: asserts the presence of a key. Supports the `only` modifier
 
 ```js
 expect({ a: 'b' }).to.have.key('a');
@@ -131,7 +131,7 @@ expect({ a: 'b', c: 'd' }).to.only.have.keys(['a', 'c']);
 expect({ a: 'b', c: 'd' }).to.not.only.have.key('a');
 ```
 
-**throwException**/**throwError**: asserts that the `Function` throws or not when called
+**throwException** / **throwError**: asserts that the `Function` throws or not when called
 
 ```js
 expect(fn).to.throwError(); // synonym of throwException
@@ -148,14 +148,14 @@ expect(fn2).to.not.throwException();
 expect(1).to.be.within(0, Infinity);
 ```
 
-**greaterThan**/**above**: asserts `>`
+**greaterThan** / **above**: asserts `>`
 
 ```js
 expect(3).to.be.above(0);
 expect(5).to.be.greaterThan(3);
 ```
 
-**lessThan**/**below**: asserts `<`
+**lessThan** / **below**: asserts `<`
 
 ```js
 expect(0).to.be.below(3);

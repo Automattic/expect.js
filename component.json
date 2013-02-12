@@ -1,0 +1,8 @@
+{
+  "name": "expect.js",
+  "repo": "LearnBoost/expect.js",
+  "description": "Minimalistic BDD-style assertions for Node.JS and the browser.",
+  "version": "0.2.0",
+  "main": "expect.js",
+  "scripts": [ "expect.js" ]
+}

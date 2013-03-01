@@ -96,7 +96,7 @@
       , ok = this.flags.not ? !truth : truth;
 
     if (!ok) {
-      throw new Error(msg.call(this));
+      throw new Error('function' === typeof msg ? msg.call(this) : msg);
     }
 
     this.and = new Assertion(this.obj);

@@ -1,4 +1,3 @@
-
 (function (global, module) {
 
   if ('undefined' == typeof module) {
@@ -618,6 +617,11 @@
       // Dates without properties can be shortcutted
       if (isDate(value) && $keys.length === 0) {
         return stylize(value.toUTCString(), 'date');
+      }
+      
+      // Error objects can be shortcutted
+      if (value instanceof Error) {
+        return stylize("["+value.toString()+"]", 'Error');
       }
 
       var base, type, braces;

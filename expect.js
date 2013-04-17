@@ -56,7 +56,7 @@
     }
 
     var $flags = flag ? flags[flag] : keys(flags)
-      , self = this
+      , self = this;
 
     if ($flags) {
       for (var i = 0, l = $flags.length; i < l; i++) {
@@ -83,7 +83,7 @@
         }
       }
     }
-  };
+  }
 
   /**
    * Performs an assertion
@@ -127,7 +127,7 @@
     expect(this.obj).to.be.a('function');
 
     var thrown = false
-      , not = this.flags.not
+      , not = this.flags.not;
 
     try {
       this.obj();
@@ -459,6 +459,7 @@
 
     return this;
   };
+
   /**
    * Assert a failure.
    *
@@ -496,7 +497,7 @@
       }
     }
     return true;
-  };
+  }
 
   /**
    * Array indexOf compatibility.
@@ -562,7 +563,7 @@
 
     function stylize (str) {
       return str;
-    };
+    }
 
     function format (value, recurseTimes) {
       // Provide a hook for user-specified inspect functions.
@@ -740,11 +741,11 @@
       return output;
     }
     return format(obj, (typeof depth === 'undefined' ? 2 : depth));
-  };
+  }
 
   function isArray (ar) {
     return Object.prototype.toString.call(ar) == '[object Array]';
-  };
+  }
 
   function isRegExp(re) {
     var s;
@@ -762,12 +763,11 @@
            re.test &&
            re.exec &&
            s.match(/^\/.*\/[gim]{0,3}$/);
-  };
+  }
 
   function isDate(d) {
-    if (d instanceof Date) return true;
-    return false;
-  };
+    return d instanceof Date;
+  }
 
   function keys (obj) {
     if (Object.keys) {
@@ -797,7 +797,7 @@
         other[i] = mapper.call(that, arr[i], i, arr);
 
     return other;
-  };
+  }
 
   function reduce (arr, fun) {
     if (Array.prototype.reduce) {
@@ -838,7 +838,7 @@
     }
 
     return rv;
-  };
+  }
 
   /**
    * Asserts deep equality
@@ -847,12 +847,12 @@
    * @api private
    */
 
-  expect.eql = function eql (actual, expected) {
+  expect.eql = function eql(actual, expected) {
     // 7.1. All identical values are equivalent, as determined by ===.
     if (actual === expected) {
       return true;
     } else if ('undefined' != typeof Buffer
-        && Buffer.isBuffer(actual) && Buffer.isBuffer(expected)) {
+      && Buffer.isBuffer(actual) && Buffer.isBuffer(expected)) {
       if (actual.length != expected.length) return false;
 
       for (var i = 0; i < actual.length; i++) {
@@ -861,26 +861,26 @@
 
       return true;
 
-    // 7.2. If the expected value is a Date object, the actual value is
-    // equivalent if it is also a Date object that refers to the same time.
+      // 7.2. If the expected value is a Date object, the actual value is
+      // equivalent if it is also a Date object that refers to the same time.
     } else if (actual instanceof Date && expected instanceof Date) {
       return actual.getTime() === expected.getTime();
 
-    // 7.3. Other pairs that do not both pass typeof value == "object",
-    // equivalence is determined by ==.
+      // 7.3. Other pairs that do not both pass typeof value == "object",
+      // equivalence is determined by ==.
     } else if (typeof actual != 'object' && typeof expected != 'object') {
       return actual == expected;
 
-    // 7.4. For all other Object pairs, including Array objects, equivalence is
-    // determined by having the same number of owned properties (as verified
-    // with Object.prototype.hasOwnProperty.call), the same set of keys
-    // (although not necessarily the same order), equivalent values for every
-    // corresponding key, and an identical "prototype" property. Note: this
-    // accounts for both named and indexed properties on Arrays.
+      // 7.4. For all other Object pairs, including Array objects, equivalence is
+      // determined by having the same number of owned properties (as verified
+      // with Object.prototype.hasOwnProperty.call), the same set of keys
+      // (although not necessarily the same order), equivalent values for every
+      // corresponding key, and an identical "prototype" property. Note: this
+      // accounts for both named and indexed properties on Arrays.
     } else {
       return objEquiv(actual, expected);
     }
-  }
+  };
 
   function isUndefinedOrNull (value) {
     return value === null || value === undefined;

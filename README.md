@@ -142,6 +142,13 @@ expect(fn).to.throwException(/matches the exception message/);
 expect(fn2).to.not.throwException();
 ```
 
+**withArgs**: creates anonymous function to call fn with arguments
+
+```js
+expect(fn).withArgs(invalid, arg).to.throwException();
+expect(fn).withArgs(valid, arg).to.not.throwException();
+```
+
 **within**: asserts a number within a range
 
 ```js

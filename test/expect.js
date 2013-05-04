@@ -79,6 +79,19 @@ describe('expect', function () {
     }, "expected '' to equal false")
   });
 
+  it('should test functions with arguments', function () {
+    function itThrowsSometimes (first, second) {
+      if (first ^ second) {
+        throw new Error('tell');
+      }
+    }
+
+    expect(itThrowsSometimes).withArgs(false, false).to.not.throwException();
+    expect(itThrowsSometimes).withArgs(false, true).to.throwException(/tell/);
+    expect(itThrowsSometimes).withArgs(true, false).to.throwException(/tell/);
+    expect(itThrowsSometimes).withArgs(true, true).to.not.throwException();
+  });
+
   it('should test for exceptions', function () {
     function itThrows () {
       a.b.c;

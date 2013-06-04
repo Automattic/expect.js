@@ -135,20 +135,20 @@
     try {
       this.obj();
     } catch (e) {
-      if ('function' == typeof fn) {
-        fn(e);
-      } else if ('object' == typeof fn) {
+      if (isRegExp(fn)) {
         var subject = 'string' == typeof e ? e : e.message;
         if (not) {
           expect(subject).to.not.match(fn);
         } else {
           expect(subject).to.match(fn);
         }
+      } else if ('function' == typeof fn) {
+        fn(e);
       }
       thrown = true;
     }
 
-    if ('object' == typeof fn && not) {
+    if (isRegExp(fn) && not) {
       // in the presence of a matcher, ensure the `not` only applies to
       // the matching.
       this.flags.not = false;

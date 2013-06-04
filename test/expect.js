@@ -185,6 +185,15 @@ describe('expect', function () {
     }, 'expected {} to be an array');
   });
 
+  it('should test regex', function () {
+    expect(/a/).to.be.an('regexp');
+    expect(/a/).to.be.a('regexp');
+
+    err(function () {
+      expect(null).to.be.a('regexp');
+    }, 'expected null to be a regexp');
+  });
+
   it('should test objects', function () {
     expect({}).to.be.an('object');
 
@@ -288,6 +297,7 @@ describe('expect', function () {
     expect({ foo: 'bar' }).to.eql({ foo: 'bar' });
     expect(1).to.eql(1);
     expect('4').to.eql(4);
+    expect(/a/gmi).to.eql(/a/mig);
 
     err(function () {
       expect(4).to.eql(3);

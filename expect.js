@@ -249,9 +249,10 @@
       // typeof with support for 'array'
       this.assert(
           'array' == type ? isArray(this.obj) :
-            'object' == type
-              ? 'object' == typeof this.obj && null !== this.obj
-              : type == typeof this.obj
+            'regexp' == type ? isRegExp(this.obj) :
+              'object' == type
+                ? 'object' == typeof this.obj && null !== this.obj
+                : type == typeof this.obj
         , function(){ return 'expected ' + i(this.obj) + ' to be a' + n + ' ' + type }
         , function(){ return 'expected ' + i(this.obj) + ' not to be a' + n + ' ' + type });
     } else {
@@ -875,6 +876,10 @@
     } else if (typeof actual != 'object' && typeof expected != 'object') {
       return actual == expected;
 
+    // If both are regular expression use the special `regExpEquiv` method
+    // to determine equivalence.
+    } else if (isRegExp(actual) && isRegExp(expected)) {
+      return regExpEquiv(actual, expected);
     // 7.4. For all other Object pairs, including Array objects, equivalence is
     // determined by having the same number of owned properties (as verified
     // with Object.prototype.hasOwnProperty.call), the same set of keys
@@ -892,6 +897,11 @@
 
   function isArguments (object) {
     return Object.prototype.toString.call(object) == '[object Arguments]';
+  }
+
+  function regExpEquiv (a, b) {
+    return a.source === b.source && a.global === b.global &&
+           a.ignoreCase === b.ignoreCase && a.multiline === b.multiline;
   }
 
   function objEquiv (a, b) {

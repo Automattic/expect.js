@@ -751,6 +751,8 @@
     }
     return format(obj, (typeof depth === 'undefined' ? 2 : depth));
   };
+  
+  expect.stringify = i;
 
   function isArray (ar) {
     return Object.prototype.toString.call(ar) == '[object Array]';

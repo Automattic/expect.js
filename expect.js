@@ -1,4 +1,3 @@
-
 (function (global, module) {
 
   if ('undefined' == typeof module) {
@@ -212,7 +211,7 @@
 
   Assertion.prototype.eql = function (obj) {
     this.assert(
-        expect.eql(obj, this.obj)
+        expect.eql(this.obj, obj)
       , function(){ return 'expected ' + i(this.obj) + ' to sort of equal ' + i(obj) }
       , function(){ return 'expected ' + i(this.obj) + ' to sort of not equal ' + i(obj) });
     return this;

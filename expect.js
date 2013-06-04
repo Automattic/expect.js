@@ -119,6 +119,19 @@
   };
 
   /**
+   * Creates an anonymous function which calls fn with arguments.
+   *
+   * @api public
+   */
+
+  Assertion.prototype.withArgs = function() {
+    expect(this.obj).to.be.a('function');
+    var fn = this.obj;
+    var args = Array.prototype.slice.call(arguments);
+    return expect(function() { fn.apply(null, args); });
+  }
+
+  /**
    * Assert that the function throws.
    *
    * @param {Function|RegExp} callback, or regexp to match error string against

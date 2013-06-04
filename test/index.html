@@ -5,7 +5,7 @@
     <link href="/support/mocha.css" rel="stylesheet" media="screen" />
     <script src="/support/jquery.js"></script>
     <script src="/support/mocha.js"></script>
-    <script>mocha.setup('bdd');</script>
+    <script>mocha.setup({ ui: 'bdd', globals: ['script*']});</script>
     <script src="/expect.js"></script>
     <script src="/test/expect.js"></script>
     <script>window.onload = mocha.run;</script>

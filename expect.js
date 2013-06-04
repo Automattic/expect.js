@@ -467,7 +467,11 @@
    */
   Assertion.prototype.fail = function (msg) {
     msg = msg || "explicit failure";
-    this.assert(false, msg, msg);
+    this.assert(
+        false
+      , function(){ return msg }
+      , function(){ return msg });
+    
     return this;
   };
 

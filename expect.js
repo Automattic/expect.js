@@ -1,10 +1,6 @@
-
 (function (global, module) {
 
-  if ('undefined' == typeof module) {
-    var module = { exports: {} }
-      , exports = module.exports
-  }
+  var exports = module.exports;
 
   /**
    * Exports.
@@ -71,7 +67,7 @@
           var old = this[name];
           this[name] = function () {
             return old.apply(self, arguments);
-          }
+          };
 
           for (var fn in Assertion.prototype) {
             if (Assertion.prototype.hasOwnProperty(fn) && fn != name) {
@@ -91,12 +87,19 @@
    * @api private
    */
 
-  Assertion.prototype.assert = function (truth, msg, error) {
+  Assertion.prototype.assert = function (truth, msg, error, expected) {
     var msg = this.flags.not ? error : msg
-      , ok = this.flags.not ? !truth : truth;
+      , ok = this.flags.not ? !truth : truth
+      , err;
 
     if (!ok) {
-      throw new Error(msg.call(this));
+      err = new Error(msg.call(this));
+      if (arguments.length > 3) {
+        err.actual = this.obj;
+        err.expected = expected;
+        err.showDiff = true;
+      }
+      throw err;
     }
 
     this.and = new Assertion(this.obj);
@@ -116,6 +119,19 @@
   };
 
   /**
+   * Creates an anonymous function which calls fn with arguments.
+   *
+   * @api public
+   */
+
+  Assertion.prototype.withArgs = function() {
+    expect(this.obj).to.be.a('function');
+    var fn = this.obj;
+    var args = Array.prototype.slice.call(arguments);
+    return expect(function() { fn.apply(null, args); });
+  };
+
+  /**
    * Assert that the function throws.
    *
    * @param {Function|RegExp} callback, or regexp to match error string against
@@ -132,20 +148,20 @@
     try {
       this.obj();
     } catch (e) {
-      if ('function' == typeof fn) {
-        fn(e);
-      } else if ('object' == typeof fn) {
+      if (isRegExp(fn)) {
         var subject = 'string' == typeof e ? e : e.message;
         if (not) {
           expect(subject).to.not.match(fn);
         } else {
           expect(subject).to.match(fn);
         }
+      } else if ('function' == typeof fn) {
+        fn(e);
       }
       thrown = true;
     }
 
-    if ('object' == typeof fn && not) {
+    if (isRegExp(fn) && not) {
       // in the presence of a matcher, ensure the `not` only applies to
       // the matching.
       this.flags.not = false;
@@ -212,9 +228,10 @@
 
   Assertion.prototype.eql = function (obj) {
     this.assert(
-        expect.eql(obj, this.obj)
+        expect.eql(this.obj, obj)
       , function(){ return 'expected ' + i(this.obj) + ' to sort of equal ' + i(obj) }
-      , function(){ return 'expected ' + i(this.obj) + ' to sort of not equal ' + i(obj) });
+      , function(){ return 'expected ' + i(this.obj) + ' to sort of not equal ' + i(obj) }
+      , obj);
     return this;
   };
 
@@ -250,9 +267,10 @@
       // typeof with support for 'array'
       this.assert(
           'array' == type ? isArray(this.obj) :
-            'object' == type
-              ? 'object' == typeof this.obj && null !== this.obj
-              : type == typeof this.obj
+            'regexp' == type ? isRegExp(this.obj) :
+              'object' == type
+                ? 'object' == typeof this.obj && null !== this.obj
+                : type == typeof this.obj
         , function(){ return 'expected ' + i(this.obj) + ' to be a' + n + ' ' + type }
         , function(){ return 'expected ' + i(this.obj) + ' not to be a' + n + ' ' + type });
     } else {
@@ -467,8 +485,8 @@
    * @api public
    */
   Assertion.prototype.fail = function (msg) {
-    msg = msg || "explicit failure";
-    this.assert(false, msg, msg);
+    var error = function() { return msg || "explicit failure"; }
+    this.assert(false, error, error);
     return this;
   };
 
@@ -519,14 +537,13 @@
         ; i < j && arr[i] !== o; i++);
 
     return j <= i ? -1 : i;
-  };
+  }
 
   // https://gist.github.com/1044128/
   var getOuterHTML = function(element) {
     if ('outerHTML' in element) return element.outerHTML;
     var ns = "http://www.w3.org/1999/xhtml";
     var container = document.createElementNS(ns, '_');
-    var elemProto = (window.HTMLElement || window.Element).prototype;
     var xmlSerializer = new XMLSerializer();
     var html;
     if (document.xmlVersion) {
@@ -619,6 +636,11 @@
       // Dates without properties can be shortcutted
       if (isDate(value) && $keys.length === 0) {
         return stylize(value.toUTCString(), 'date');
+      }
+      
+      // Error objects can be shortcutted
+      if (value instanceof Error) {
+        return stylize("["+value.toString()+"]", 'Error');
       }
 
       var base, type, braces;
@@ -743,8 +765,10 @@
     return format(obj, (typeof depth === 'undefined' ? 2 : depth));
   }
 
+  expect.stringify = i;
+
   function isArray (ar) {
-    return Object.prototype.toString.call(ar) == '[object Array]';
+    return Object.prototype.toString.call(ar) === '[object Array]';
   }
 
   function isRegExp(re) {
@@ -870,13 +894,16 @@
       // equivalence is determined by ==.
     } else if (typeof actual != 'object' && typeof expected != 'object') {
       return actual == expected;
-
-      // 7.4. For all other Object pairs, including Array objects, equivalence is
-      // determined by having the same number of owned properties (as verified
-      // with Object.prototype.hasOwnProperty.call), the same set of keys
-      // (although not necessarily the same order), equivalent values for every
-      // corresponding key, and an identical "prototype" property. Note: this
-      // accounts for both named and indexed properties on Arrays.
+    // If both are regular expression use the special `regExpEquiv` method
+    // to determine equivalence.
+    } else if (isRegExp(actual) && isRegExp(expected)) {
+      return regExpEquiv(actual, expected);
+    // 7.4. For all other Object pairs, including Array objects, equivalence is
+    // determined by having the same number of owned properties (as verified
+    // with Object.prototype.hasOwnProperty.call), the same set of keys
+    // (although not necessarily the same order), equivalent values for every
+    // corresponding key, and an identical "prototype" property. Note: this
+    // accounts for both named and indexed properties on Arrays.
     } else {
       return objEquiv(actual, expected);
     }
@@ -888,6 +915,11 @@
 
   function isArguments (object) {
     return Object.prototype.toString.call(object) == '[object Arguments]';
+  }
+
+  function regExpEquiv (a, b) {
+    return a.source === b.source && a.global === b.global &&
+           a.ignoreCase === b.ignoreCase && a.multiline === b.multiline;
   }
 
   function objEquiv (a, b) {
@@ -958,7 +990,7 @@
           f(d.getUTCHours())     + ':' +
           f(d.getUTCMinutes())   + ':' +
           f(d.getUTCSeconds())   + 'Z' : null;
-    };
+    }
 
     var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
         escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
@@ -1248,6 +1280,5 @@
 
 })(
     this
-  , 'undefined' != typeof module ? module : {}
-  , 'undefined' != typeof exports ? exports : {}
+  , 'undefined' != typeof module ? module : {exports: {}}
 );

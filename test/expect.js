@@ -540,6 +540,8 @@ describe('expect', function () {
     expect(5).to.be.a('number').and.be(5);
     expect(5).to.be.a('number').and.not.be(6);
     expect(5).to.be.a('number').and.not.be(6).and.not.be('5');
+    expect(5).to.be.ok().and.be.a('number').and.not.be(6).and.not.be('5');
+    expect(function () { throw 'foo'; }).to.throwError().and.to.be.a('function');
 
     err(function () {
       expect(5).to.be.a('number').and.not.be(5);

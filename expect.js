@@ -116,6 +116,7 @@
         !!this.obj
       , function(){ return 'expected ' + i(this.obj) + ' to be truthy' }
       , function(){ return 'expected ' + i(this.obj) + ' to be falsy' });
+    return this;
   };
 
   /**
@@ -172,6 +173,7 @@
         thrown
       , function(){ return 'expected ' + name + ' to throw an exception' }
       , function(){ return 'expected ' + name + ' not to throw an exception' });
+    return this;
   };
 
   /**

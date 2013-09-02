@@ -421,6 +421,46 @@
   };
 
   /**
+   * Assert that the actual array contains all expected items.
+   * Order of items doesn't matter.
+   *
+   * @param {Array} expectedItems
+   * @api public
+   */
+
+  Assertion.prototype.containAll = function (expectedItems) {
+    expect(expectedItems).to.be.an('array');
+    for (var i = 0; i < expectedItems.length; i++) {
+      expect(this.obj).to.containEql(expectedItems[i]);
+    }
+    return this;
+  };
+
+  /**
+   * Assert that the actual array contains the given obj.
+   *
+   * @param {Mixed} obj|string|int
+   * @api public
+   */
+
+  Assertion.prototype.containEql = function (obj) {
+    expect(this.obj).to.be.an('array');
+    var numFails = 0;
+    for (var index = 0; index < this.obj.length; index++) {
+      try {
+        expect(this.obj[index]).to.eql(obj);
+      } catch (e) {
+        numFails++;
+      }
+    }
+    this.assert(
+        numFails < this.obj.length
+      , function(){ return 'expected ' + i(this.obj) + ' to contain ' + i(obj) }
+      , function(){ return 'expected ' + i(this.obj) + ' to not contain ' + i(obj) });
+    return this;
+  };
+
+  /**
    * Assert exact keys or inclusion of keys by using
    * the `.own` modifier.
    *

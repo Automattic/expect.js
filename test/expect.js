@@ -455,6 +455,29 @@ describe('expect', function () {
     }, "expected [ 'bar', 'foo' ] to not contain 'foo'");
   });
 
+  it('should test containAll()', function () {
+    expect([{a: 1}, {b: 2}, {c: 3}]).to.containAll([{c: 3}, {a: 1}]);
+    expect([true, 123, 'foo', {a: 1}]).to.containAll(['foo', {a: 1}, 123], true);
+    err(function () {
+      expect([]).to.containAll(1);
+    }, "expected 1 to be an array");
+    err(function () {
+      expect([{a: 1}, {b: 2}]).to.containAll([{b: 2}, {c: 3}]);
+    }, "expected [ { a: 1 }, { b: 2 } ] to contain { c: 3 }");
+  });
+
+  it('should test containEql()', function () {
+    expect([{a: 1}, {b: 2}, {c: 3}]).to.containEql({b: 2});
+    expect([1, 2]).to.containEql(1);
+    expect(['a', 'b']).to.containEql('b');
+    err(function () {
+      expect({a: 1}).to.containEql(1);
+    }, "expected { a: 1 } to be an array");
+    err(function () {
+      expect([{a: 1}, {b: 2}]).to.containEql({c: 3});
+    }, "expected [ { a: 1 }, { b: 2 } ] to contain { c: 3 }");
+  });
+
   it('should test keys(array)', function () {
     expect({ foo: 1 }).to.have.keys(['foo']);
     expect({ foo: 1, bar: 2 }).to.have.keys(['foo', 'bar']);

@@ -134,12 +134,12 @@ expect({ a: 'b', c: 'd' }).to.not.only.have.key('a');
 **throwException**/**throwError**: asserts that the `Function` throws or not when called
 
 ```js
-expect(fn).to.throwError(); // synonym of throwException
-expect(fn).to.throwException(function (e) { // get the exception object
+expect( function(){ MyFunction(undefined) } ).to.throwError(); // synonym of throwException
+expect( function(){ MyFunction(undefined) } ).to.throwException(function (e) { // get the exception object
   expect(e).to.be.a(SyntaxError);
 });
-expect(fn).to.throwException(/matches the exception message/);
-expect(fn2).to.not.throwException();
+expect( function(){ MyFunction(undefined) } ).to.throwException(/matches the exception message/);
+expect( function(){ MyFunction('some input') } ).to.not.throwException();
 ```
 
 **withArgs**: creates anonymous function to call fn with arguments

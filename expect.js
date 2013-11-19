@@ -161,9 +161,9 @@
       thrown = true;
     }
 
-    if (isRegExp(fn) && not) {
-      // in the presence of a matcher, ensure the `not` only applies to
-      // the matching.
+    if (thrown && not && isRegExp(fn)) {
+      // in the presence of a matcher and an error actually is thrown,
+      // ensure the `not` only applies to the matching.
       this.flags.not = false;
     }
 

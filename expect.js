@@ -253,6 +253,23 @@
   };
 
   /**
+   * Assert within value +- delta (inclusive).
+   *
+   * @param {Number} value
+   * @param {Number} delta
+   * @api public
+   */
+
+  Assertion.prototype.approximate =
+  Assertion.prototype.approximately = function (value, delta) {
+    this.assert(
+        Math.abs(this.obj - value) <= delta
+      , function(){ return 'expected ' + i(this.obj) + ' to be approximately ' + value + ' +- ' + delta }
+      , function(){ return 'expected ' + i(this.obj) + ' to not be approximately ' + value + " +- " + delta });
+    return this;
+  };
+
+  /**
    * Assert typeof / instance of
    *
    * @api public

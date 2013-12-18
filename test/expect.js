@@ -263,6 +263,20 @@ describe('expect', function () {
     }, "expected 10 to be within 50..100");
   });
 
+  it('should test approximately(value, delta)', function() {
+    expect(1.5).to.approximate(1.4, 0.2);
+    expect(1.5).to.approximate(1.5, 10E-10);
+    expect(1.5).to.not.approximate(1.4, 1E-2);
+
+    err(function () {
+      expect(99.99).to.not.approximate(100, 0.1);
+    }, "expected 99.99 to not be approximately 100 +- 0.1");
+
+    err(function () {
+      expect(99.99).to.approximate(105, 0.1);
+    }, "expected 99.99 to be approximately 105 +- 0.1");
+  });
+
   it('should test above(n)', function () {
     expect(5).to.be.above(2);
     expect(5).to.be.greaterThan(2);

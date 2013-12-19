@@ -138,6 +138,7 @@
    * @api public
    */
 
+  Assertion.prototype['throw'] =
   Assertion.prototype.throwError =
   Assertion.prototype.throwException = function (fn) {
     expect(this.obj).to.be.a('function');

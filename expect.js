@@ -318,6 +318,42 @@
   };
 
   /**
+   * Assert string or buffer starts with _value_.
+   *
+   * @param {String|Buffer} value
+   * @api public
+   */
+
+  Assertion.prototype.startWith = function (value) {
+    expect(this.obj).to.be.ok();
+    expect(this.obj.slice).to.be.a('function');
+    this.assert(
+        expect.eql(this.obj.slice(0, value.length), value)
+      , function(){ return 'expected ' + i(this.obj) + ' to start with ' + i(value) }
+      , function(){ return 'expected ' + i(this.obj) + ' to not start with ' + i(value) });
+    return this;
+  };
+
+  /**
+   * Assert string or buffer ends with _value_.
+   *
+   * @param {String|Buffer} value
+   * @api public
+   */
+
+  Assertion.prototype.endWith = function (value) {
+    expect(this.obj).to.be.ok();
+    expect(this.obj.slice).to.be.a('function');
+    this.assert(
+        value.length == 0
+        ? expect.eql(this.obj.slice(0, 0), value)
+        : expect.eql(this.obj.slice(-value.length), value)
+      , function(){ return 'expected ' + i(this.obj) + ' to end with ' + i(value) }
+      , function(){ return 'expected ' + i(this.obj) + ' to not end with ' + i(value) });
+    return this;
+  };
+
+  /**
    * Assert string value matches _regexp_.
    *
    * @param {RegExp} regexp

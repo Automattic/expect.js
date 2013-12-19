@@ -562,4 +562,12 @@ describe('expect', function () {
     }, "explicit failure with message");
   });
 
+  // only tests exact aliases
+  it('should alias correctly', function () {
+    expect(expect.throwError).to.equal(expect.throwException);
+    expect(expect.between).to.equal(expect.within);
+    expect(expect.greaterThan).to.equal(expect.above);
+    expect(expect.lessThan).to.equal(expect.below);
+  });
+
 });

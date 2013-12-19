@@ -278,6 +278,50 @@ describe('expect', function () {
     }, "expected 10 to be below 6");
   });
 
+  it('should test startWith(value)', function () {
+    expect('hello').to.startWith('hello');
+    expect('hello').to.startWith('he');
+    expect('hello').to.startWith('');
+    expect('hello').to.not.startWith('H');
+    expect('goodbye').to.not.startWith('hello');
+
+    expect(new Buffer('hello')).to.startWith(new Buffer('hello'));
+    expect(new Buffer('hello')).to.startWith(new Buffer('he'));
+    expect(new Buffer('hello')).to.startWith(new Buffer(''));
+    expect(new Buffer('hello')).to.not.startWith(new Buffer('H'));
+    expect(new Buffer('goodbye')).to.not.startWith(new Buffer('hello'));
+
+    err(function () {
+      expect('hello').to.startWith('goodbye');
+    }, "expected 'hello' to start with 'goodbye'");
+
+    err(function () {
+      expect('goodbye').to.not.startWith('good');
+    }, "expected 'goodbye' to not start with 'good'");
+  });
+
+  it('should test endWith(value)', function () {
+    expect('hello').to.endWith('hello');
+    expect('hello').to.endWith('lo');
+    expect('hello').to.endWith('');
+    expect('hello').to.not.endWith('O');
+    expect('goodbye').to.not.endWith('hello');
+
+    expect(new Buffer('hello')).to.endWith(new Buffer('hello'));
+    expect(new Buffer('hello')).to.endWith(new Buffer('lo'));
+    expect(new Buffer('hello')).to.endWith(new Buffer(''));
+    expect(new Buffer('hello')).to.not.endWith(new Buffer('O'));
+    expect(new Buffer('goodbye')).to.not.endWith(new Buffer('hello'));
+
+    err(function () {
+      expect('hello').to.endWith('goodbye');
+    }, "expected 'hello' to end with 'goodbye'");
+
+    err(function () {
+      expect('goodbye').to.not.endWith('bye');
+    }, "expected 'goodbye' to not end with 'bye'");
+  });
+
   it('should test match(regexp)', function () {
     expect('foobar').to.match(/^foo/)
     expect('foobar').to.not.match(/^bar/)

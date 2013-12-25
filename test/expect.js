@@ -311,6 +311,8 @@ describe('expect', function () {
     expect(1).to.eql(1);
     expect('4').to.eql(4);
     expect(/a/gmi).to.eql(/a/mig);
+    function returnArguments() { return arguments; }
+    expect(returnArguments(0,1,2,3)).to.eql(returnArguments(0,1,2,3));
 
     err(function () {
       expect(4).to.eql(3);

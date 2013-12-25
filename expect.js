@@ -933,6 +933,7 @@
       if (!isArguments(b)) {
         return false;
       }
+      var pSlice = Array.prototype.slice;
       a = pSlice.call(a);
       b = pSlice.call(b);
       return expect.eql(a, b);

@@ -16,6 +16,12 @@
   expect.version = '0.1.2';
 
   /**
+   * A number of the passed tests.
+   */
+
+  expect.passedTests = 0;
+
+  /**
    * Possible assertion flags.
    */
 
@@ -28,6 +34,7 @@
   };
 
   function expect (obj) {
+    expect.passedTests++;
     return new Assertion(obj);
   }
 
@@ -488,6 +495,16 @@
     var error = function() { return msg || "explicit failure"; }
     this.assert(false, error, error);
     return this;
+  };
+
+  /**
+   * Showing results.
+   *
+   * @api public
+   */
+  Assertion.prototype.result = function() {
+    console.log("Passed tests: " + expect.passedTests);
+    expect.passedTests = 0;
   };
 
   /**

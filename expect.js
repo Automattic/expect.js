@@ -503,7 +503,7 @@
    * @api public
    */
   Assertion.prototype.result = function() {
-    console.log("Passed tests: " + expect.passedTests);
+    console.log("Passed tests: " + (expect.passedTests-1));
     expect.passedTests = 0;
   };
 

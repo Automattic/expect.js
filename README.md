@@ -176,6 +176,12 @@ expect().fail()
 expect().fail("Custom failure message")
 ```
 
+**result**: displays the number of the passed tests
+
+```js
+expect().result()
+```
+
 ## Using with a test framework
 
 For example, if you create a test suite with

@@ -1,4 +1,14 @@
 
+0.2.1 / 2014-01-22
+==================
+
+  * Added .with() syntax for easier scenarios
+  * Added .withArgs() syntax for building scenario
+  * Added support for 'regexp' type and eql comparison 
+  * Additional formatting for Error objects.
+  * simplified isDate()
+  * Fixed order of actual vs expected in eql()
+
 0.2.0 / 2012-10-19
 ==================
 

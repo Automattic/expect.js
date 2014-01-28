@@ -398,7 +398,7 @@
   };
 
   /**
-   * Assert that the array contains _obj_ or string contains _obj_.
+   * Assert that the array contains _obj_, string contains _obj_, or object contains _obj_.
    *
    * @param {Mixed} obj|string
    * @api public
@@ -406,7 +406,16 @@
 
   Assertion.prototype.string =
   Assertion.prototype.contain = function (obj) {
-    if ('string' == typeof this.obj) {
+    if ('object' == typeof this.obj && !isArray(this.obj)) {
+      for (var k in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, k)) {
+          this.assert(
+              (k in this.obj) && obj[k] == this.obj[k]
+            , function(){ return 'expected ' + i(this.obj) + ' to contain the key ' + i(k) + ' with the value ' + i(obj[k]) }
+            , function(){ return 'expected ' + i(this.obj) + ' to not contain the key ' + i(k) + ' with the value ' + i(obj[k]) });
+        }
+      }
+    } else if ('string' == typeof this.obj) {
       this.assert(
           ~this.obj.indexOf(obj)
         , function(){ return 'expected ' + i(this.obj) + ' to contain ' + i(obj) }

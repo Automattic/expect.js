@@ -406,13 +406,10 @@
 
   Assertion.prototype.string =
   Assertion.prototype.contain = function (obj) {
-    if ('object' == typeof this.obj && !isArray(this.obj)) {
+    if (('object' == typeof obj) && !isArray(obj)) {
       for (var k in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, k)) {
-          this.assert(
-              (k in this.obj) && obj[k] == this.obj[k]
-            , function(){ return 'expected ' + i(this.obj) + ' to contain the key ' + i(k) + ' with the value ' + i(obj[k]) }
-            , function(){ return 'expected ' + i(this.obj) + ' to not contain the key ' + i(k) + ' with the value ' + i(obj[k]) });
+          this.property(k, obj[k]);
         }
       }
     } else if ('string' == typeof this.obj) {

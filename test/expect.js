@@ -458,13 +458,15 @@ describe('expect', function () {
   it('should test existance of subobject', function () {
     expect({ foo: 'bar' }).to.contain({ foo: 'bar' });
     expect({ foo: 'bar', bar: 'foo' }).to.contain({ bar: 'foo' });
-
     expect({ foo: 'bar' }).to.not.contain({ foo: 'baz' });
-    expect({ bar: 'foo' }).to.not.contain({ foo: 'baz' });
 
     err(function () {
       expect({ foo: 'foo' }).to.contain({ bar: 'bar' });
-    }, "expected { foo: 'foo' } to contain the key 'bar' with the value 'bar'");
+    }, "expected { foo: 'foo' } to have a property 'bar'");
+
+    err(function () {
+      expect({ foo: 'foo' }).to.contain({ foo: 'bar' });
+    }, "expected { foo: 'foo' } to have a property 'foo' of 'bar', but got 'foo'");
   });
 
   it('should test keys(array)', function () {

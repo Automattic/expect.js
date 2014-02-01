@@ -227,9 +227,11 @@
    */
 
   Assertion.prototype.near =
-  Assertion.prototype.about = function (obj) {
+  Assertion.prototype.about = function (value, precision) {
+    if (precision == null) precision = 2;
+    var diff = Math.pow(10, -precision) / 2;
     this.assert(
-      Math.abs(obj - this.obj) < 0.005
+      Math.abs(obj - this.obj) < diff
       , function(){ return 'expected ' + i(this.obj) + ' to be near ' + i(obj) }
       , function(){ return 'expected ' + i(this.obj) + ' to not be near ' + i(obj) });
     return this;

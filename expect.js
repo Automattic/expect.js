@@ -221,6 +221,21 @@
   };
 
   /**
+   * Checks if the number is approximately another.
+   *
+   * @api public
+   */
+
+  Assertion.prototype.near =
+  Assertion.prototype.about = function (obj) {
+    this.assert(
+      Math.abs(obj - this.obj) < 0.005
+      , function(){ return 'expected ' + i(this.obj) + ' to be near ' + i(obj) }
+      , function(){ return 'expected ' + i(this.obj) + ' to not be near ' + i(obj) });
+    return this;
+  };
+
+  /**
    * Checks if the obj sortof equals another.
    *
    * @api public

@@ -227,6 +227,8 @@
    */
 
   Assertion.prototype.near =
+  Assertion.prototype.approximately =
+  Assertion.prototype.approximate =
   Assertion.prototype.about = function (value, precision) {
     if (precision == null) precision = 2;
     var diff = Math.pow(10, -precision) / 2;

@@ -36,7 +36,7 @@ var expect = require('expect.js');
 
 ### Browser
 
-Expose the `expect.js` found at the top level of this repository.
+Expose the `index.js` found at the top level of this repository.
 
 ```html
 <script src="expect.js"></script>

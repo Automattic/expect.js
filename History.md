@@ -1,4 +1,24 @@
 
+0.3.0 / 2014-02-20
+==================
+
+ * renmaed to `index.js`
+ * added repository to package.json
+ * remove unused variable and merge
+ * simpify isDate() and remove unnecessary semicolon.
+ * Add .withArgs() syntax for building scenario
+ * eql(): fix wrong order of actual vs. expected.
+ * Added formatting for Error objects
+ * Add support for 'regexp' type and eql comparison of regular expressions.
+ * Better to follow the same coding style
+ * Use 'showDiff' flag
+ * Add 'actual' & 'expected' property to the thrown error
+ * Pass .fail() unit test
+ * Ignore 'script*' global leak in chrome
+ * Exposed object stringification function
+ * Use isRegExp in Assertion::throwException. Fix #25
+ * Cleaned up local variables
+
 0.2.0 / 2012-10-19
 ==================
 

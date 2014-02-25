@@ -143,6 +143,7 @@ describe('expect', function () {
 
     expect(itThrowsString).to.throwException(/aaa/);
     expect(itThrowsString).to.not.throwException(/bbb/);
+    expect(itWorks).to.not.throwException(/ccc/);
 
     err(function () {
       expect(itThrowsString).to.throwException(/no match/i);

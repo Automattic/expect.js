@@ -10,4 +10,7 @@
         "mocha": "*"
       , "serve": "*"
     }
+  , "spm": {
+    "main": "index.js"
+  }
 }

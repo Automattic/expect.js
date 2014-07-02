@@ -94,7 +94,7 @@
 
     if (!ok) {
       err = new Error(msg.call(this));
-      if (arguments.length > 3) {
+      if (expected != null) {
         err.actual = this.obj;
         err.expected = expected;
         err.showDiff = true;
@@ -216,7 +216,8 @@
     this.assert(
         obj === this.obj
       , function(){ return 'expected ' + i(this.obj) + ' to equal ' + i(obj) }
-      , function(){ return 'expected ' + i(this.obj) + ' to not equal ' + i(obj) });
+      , function(){ return 'expected ' + i(this.obj) + ' to not equal ' + i(obj) }
+      , obj);
     return this;
   };
 
@@ -637,7 +638,7 @@
       if (isDate(value) && $keys.length === 0) {
         return stylize(value.toUTCString(), 'date');
       }
-      
+
       // Error objects can be shortcutted
       if (value instanceof Error) {
         return stylize("["+value.toString()+"]", 'Error');

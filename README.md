@@ -172,8 +172,8 @@ expect(1).to.be.lessThan(3);
 **fail**: explicitly forces failure.
 
 ```js
-expect().fail()
-expect().fail("Custom failure message")
+expect().to.fail()
+expect().to.fail("Custom failure message")
 ```
 
 ## Using with a test framework

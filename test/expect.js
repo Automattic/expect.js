@@ -278,9 +278,43 @@ describe('expect', function () {
     }, "expected 10 to be below 6");
   });
 
+  it('should test aboveOrEqual(n)', function () {
+    expect(5).to.be.aboveOrEqual(2);
+    expect(5).to.be.aboveOrEqual(5);
+    expect(5).to.be.greaterThanOrEqual(2);
+    expect(5).to.be.greaterThanOrEqual(5);
+    expect(5).to.not.be.aboveOrEqual(6);
+    expect(5).to.not.be.greaterThanOrEqual(6);
+
+    err(function () {
+      expect(5).to.be.aboveOrEqual(6);
+    }, "expected 5 to be above or equal 6");
+
+    err(function () {
+      expect(10).to.not.be.aboveOrEqual(6);
+    }, "expected 10 to be below 6");
+  });
+
+  it('should test belowOrEqual(n)', function () {
+    expect(5).to.be.belowOrEqual(9);
+    expect(5).to.be.belowOrEqual(5);
+    expect(5).to.be.lessThanOrEqual(9);
+    expect(5).to.be.lessThanOrEqual(5);
+    expect(5).to.not.be.belowOrEqual(3);
+    expect(5).to.not.be.lessThanOrEqual(3);
+
+    err(function () {
+      expect(5).to.be.belowOrEqual(3);
+    }, "expected 5 to be below or equal 3");
+
+    err(function () {
+      expect(10).to.not.be.belowOrEqual(30);
+    }, "expected 10 to be above 30");
+  });
+
   it('should test match(regexp)', function () {
-    expect('foobar').to.match(/^foo/)
-    expect('foobar').to.not.match(/^bar/)
+    expect('foobar').to.match(/^foo/);
+    expect('foobar').to.not.match(/^bar/);
 
     err(function () {
       expect('foobar').to.match(/^bar/i)

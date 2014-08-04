@@ -302,6 +302,22 @@
   };
 
   /**
+   * Assert numeric value above or equal _n_.
+   *
+   * @param {Number} n
+   * @api public
+   */
+
+  Assertion.prototype.greaterThanOrEqual =
+  Assertion.prototype.aboveOrEqual = function (n) {
+    this.assert(
+        this.obj >= n
+      , function(){ return 'expected ' + i(this.obj) + ' to be above or equal ' + n }
+      , function(){ return 'expected ' + i(this.obj) + ' to be below ' + n });
+    return this;
+  };
+
+  /**
    * Assert numeric value below _n_.
    *
    * @param {Number} n
@@ -313,6 +329,22 @@
     this.assert(
         this.obj < n
       , function(){ return 'expected ' + i(this.obj) + ' to be below ' + n }
+      , function(){ return 'expected ' + i(this.obj) + ' to be above ' + n });
+    return this;
+  };
+
+  /**
+   * Assert numeric value below or equal _n_.
+   *
+   * @param {Number} n
+   * @api public
+   */
+
+  Assertion.prototype.lessThanOrEqual =
+  Assertion.prototype.belowOrEqual = function (n) {
+    this.assert(
+        this.obj <= n
+      , function(){ return 'expected ' + i(this.obj) + ' to be below or equal ' + n }
       , function(){ return 'expected ' + i(this.obj) + ' to be above ' + n });
     return this;
   };

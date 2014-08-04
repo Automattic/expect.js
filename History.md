@@ -1,4 +1,10 @@
 
+0.3.3 / 2014-??-??
+==================
+
+ * added .lessThanOrEqual() and .greaterThanOrEqual()
+
+
 0.3.0 / 2014-02-20
 ==================
 

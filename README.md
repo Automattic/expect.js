@@ -39,7 +39,7 @@ var expect = require('expect.js');
 Expose the `index.js` found at the top level of this repository.
 
 ```html
-<script src="expect.js"></script>
+<script src="index.js"></script>
 ```
 
 ## API

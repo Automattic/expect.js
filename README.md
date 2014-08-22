@@ -114,6 +114,16 @@ expect({ my: 'object' }).to.not.be.empty();
 expect([1,2,3]).to.not.be.empty();
 ```
 
+**exist**: asserts that the value is neither null nor undefined
+
+```js
+expect('test').to.exist();
+expect('').to.exist();
+expect(0).to.exist();
+expect(null).to.not.exist();
+expect(undefined).to.not.exist();
+```
+
 **property**: asserts presence of an own property (and value optionally)
 
 ```js

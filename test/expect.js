@@ -374,6 +374,26 @@ describe('expect', function () {
     }, "expected {} to not be empty");
   });
 
+  it('should test exist', function() {
+    expect('test').to.exist();
+    expect('').to.exist();
+    expect(0).to.exist();
+    expect(false).to.exist();
+    expect(NaN).to.exist();
+    expect({}).to.exist();
+    expect([]).to.exist();
+    expect(null).to.not.exist();
+    expect(undefined).to.not.exist();
+
+    err(function () {
+      expect('test').to.not.exist();
+    }, "expected 'test' to not exist");
+
+    err(function () {
+      expect(null).to.exist();
+    }, "expected null to exist");
+  });
+
   it('should test property(name)', function () {
     expect('test').to.have.property('length');
     expect(4).to.not.have.property('length');
@@ -382,7 +402,7 @@ describe('expect', function () {
     err(function () {
       expect('asd').to.have.property('foo');
     }, "expected 'asd' to have a property 'foo'");
-    
+
     err(function () {
       expect({ length: undefined }).to.not.have.property('length');
     }, "expected { length: undefined } to not have a property 'length'");
@@ -403,7 +423,7 @@ describe('expect', function () {
     err(function () {
       expect('asd').to.not.have.property('foo', 3);
     }, "'asd' has no property 'foo'");
-    
+
     err(function () {
       expect({ length: undefined }).to.not.have.property('length', undefined);
     }, "expected { length: undefined } to not have a property 'length'");

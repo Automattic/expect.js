@@ -82,6 +82,9 @@ expect(5).to.be.a(Number);
 expect([]).to.be.an(Array);
 expect(tobi).to.be.a(Ferret);
 expect(person).to.be.a(Mammal);
+
+// functions
+expect(function(){ }).to.be.a('function'); 
 ```
 
 **match**: asserts `String` regular expression match

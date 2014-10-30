@@ -266,11 +266,12 @@
 
       // typeof with support for 'array'
       this.assert(
-          'array' == type ? isArray(this.obj) :
-            'regexp' == type ? isRegExp(this.obj) :
-              'object' == type
-                ? 'object' == typeof this.obj && null !== this.obj
-                : type == typeof this.obj
+          'function' == type ? isFunction(this.obj) :
+            'array' == type ? isArray(this.obj) :
+              'regexp' == type ? isRegExp(this.obj) :
+                'object' == type
+                  ? 'object' == typeof this.obj && null !== this.obj
+                  : type == typeof this.obj
         , function(){ return 'expected ' + i(this.obj) + ' to be a' + n + ' ' + type }
         , function(){ return 'expected ' + i(this.obj) + ' not to be a' + n + ' ' + type });
     } else {
@@ -769,6 +770,10 @@
 
   function isArray (ar) {
     return Object.prototype.toString.call(ar) === '[object Array]';
+  }
+  
+  function isFunction(fn) {
+    return Object.prototype.toString.call(fn) === '[object Function]';
   }
 
   function isRegExp(re) {

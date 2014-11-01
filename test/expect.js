@@ -133,6 +133,13 @@ describe('expect', function () {
       expect(itThrowsMessage).to.throwException(/no match/);
     }, 'expected \'tobi\' to match /no match/');
 
+    expect(itThrowsMessage).to.throwException('tobi');
+    expect(itThrowsMessage).to.not.throwException('test');
+
+    err(function () {
+      expect(itThrowsMessage).to.throwException('no match');
+    }, 'expected \'tobi\' to equal \'no match\'');
+
     var subject2;
 
     expect(itThrowsString).to.throwException(function (str) {

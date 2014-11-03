@@ -122,6 +122,15 @@ expect(window).to.have.property('expect', expect)
 expect({a: 'b'}).to.have.property('a');
 ```
 
+**which**: chains tests on your properties
+
+````js
+expect({
+  foo : []
+}).to.have.property("foo")
+  .which.is.an("array");
+````
+
 **key**/**keys**: asserts the presence of a key. Supports the `only` modifier
 
 ```js

@@ -395,6 +395,18 @@ describe('expect', function () {
     }, "expected { length: 12 } to not have own property 'length'");
   });
 
+  it("should test property().which", function () {
+    expect({ foo: {
+      bar : 0
+    }}).to.have.property("foo").which.eql({ bar : 0 });
+  });
+
+  it("should allow .has after .which", function () {
+    expect({ foo: {
+      bar : 0
+    }}).to.have.property("foo").which.has.property("bar", 0);
+  });
+
   it('should test string()', function () {
     expect('foobar').to.contain('bar');
     expect('foobar').to.contain('foo');

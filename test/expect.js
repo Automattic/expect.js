@@ -409,6 +409,14 @@ describe('expect', function () {
     }, "expected { length: undefined } to not have a property 'length'");
   });
 
+  it('should test property(name, val) unstrictly', function () {
+    expect({ array: [1] }).to.have.property('array', [1]);
+
+    err(function () {
+      expect({ array: [1] }).to.have.property('array', [2]);
+    }, "expected { array: [ 1 ] } to have a property 'array' of [ 2 ], but got [ 1 ]");
+  });
+
   it('should test own.property(name)', function () {
     expect('test').to.have.own.property('length');
     expect({ length: 12 }).to.have.own.property('length');

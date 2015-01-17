@@ -2,6 +2,9 @@
     "name": "expect.js"
   , "version": "0.3.1"
   , "description": "BDD style assertions for node and the browser."
+  , "scripts": {
+    "test": "mocha --require ./test/common --growl test/expect.js"
+  }
   , "repository": {
         "type": "git",
         "url": "git://github.com/LearnBoost/expect.js.git"

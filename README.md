@@ -78,7 +78,6 @@ expect([]).to.be.an('array');  // works
 expect([]).to.be.an('object'); // works too, since it uses `typeof`
 
 // constructors
-expect(5).to.be.a(Number);
 expect([]).to.be.an(Array);
 expect(tobi).to.be.a(Ferret);
 expect(person).to.be.a(Mammal);

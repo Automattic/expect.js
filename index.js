@@ -156,13 +156,20 @@
         } else {
           expect(subject).to.match(fn);
         }
+      } else if ('string' == typeof fn) {
+        var subject = 'string' == typeof e ? e : e.message;
+        if (not) {
+          expect(subject).not.to.equal(fn);
+        } else {
+          expect(subject).to.equal(fn);
+        }
       } else if ('function' == typeof fn) {
         fn(e);
       }
       thrown = true;
     }
 
-    if (isRegExp(fn) && not) {
+    if ((isRegExp(fn) && not) || ('string' == typeof fn && not)) {
       // in the presence of a matcher, ensure the `not` only applies to
       // the matching.
       this.flags.not = false;

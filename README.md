@@ -139,6 +139,7 @@ expect(fn).to.throwException(function (e) { // get the exception object
   expect(e).to.be.a(SyntaxError);
 });
 expect(fn).to.throwException(/matches the exception message/);
+expect(fn).to.throwException('exactly matches the exception message');
 expect(fn2).to.not.throwException();
 ```
 

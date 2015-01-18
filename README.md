@@ -130,9 +130,10 @@ expect({ a: 'b', c: 'd' }).to.only.have.keys(['a', 'c']);
 expect({ a: 'b', c: 'd' }).to.not.only.have.key('a');
 ```
 
-**throwException**/**throwError**: asserts that the `Function` throws or not when called
+**throw**/**throwException**/**throwError**: asserts that the `Function` throws or not when called
 
 ```js
+expect(fn).to.throw(); // synonym of throwException
 expect(fn).to.throwError(); // synonym of throwException
 expect(fn).to.throwException(function (e) { // get the exception object
   expect(e).to.be.a(SyntaxError);
@@ -207,7 +208,7 @@ and shown/processed by the test runner.
 
 ## Differences with should.js
 
-- No need for static `should` methods like `should.strictEqual`. For example, 
+- No need for static `should` methods like `should.strictEqual`. For example,
   `expect(obj).to.be(undefined)` works well.
 - Some API simplifications / changes.
 - API changes related to browser compatibility.

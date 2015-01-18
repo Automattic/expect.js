@@ -138,6 +138,7 @@
    * @api public
    */
 
+  Assertion.prototype['throw'] =
   Assertion.prototype.throwError =
   Assertion.prototype.throwException = function (fn) {
     expect(this.obj).to.be.a('function');
@@ -637,7 +638,7 @@
       if (isDate(value) && $keys.length === 0) {
         return stylize(value.toUTCString(), 'date');
       }
-      
+
       // Error objects can be shortcutted
       if (value instanceof Error) {
         return stylize("["+value.toString()+"]", 'Error');

@@ -351,6 +351,18 @@ describe('expect', function () {
     }, "expected '4' to equal 4");
   });
 
+  it('should test eql(val) with cyclic structures', function () {
+    var one = {hello: 'world'}, two = {hello: 'world'};
+    one.next = one;
+    two.next = two;
+    expect(one).to.eql(two);
+
+    var three = ['hello'], four = ['hello'];
+    three.push(three);
+    four.push(four);
+    expect(obj).to.eql(obj);
+  });
+
   it('should test empty', function () {
     expect('').to.be.empty();
     expect({}).to.be.empty();

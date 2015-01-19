@@ -930,10 +930,11 @@
     if (a.prototype !== b.prototype) return false;
     //~~~I've managed to break Object.keys through screwy arguments passing.
     //   Converting to array solves the problem.
-    if (isArguments(a)) {
-      if (!isArguments(b)) {
-        return false;
-      }
+    var aIsArgs = isArguments(a),
+        bIsArgs = isArguments(b);
+    if ((aIsArgs && !bIsArgs) || (!aIsArgs && bIsArgs))
+      return false;
+    if (aIsArgs) {
       a = pSlice.call(a);
       b = pSlice.call(b);
       return expect.eql(a, b);

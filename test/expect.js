@@ -320,6 +320,14 @@ describe('expect', function () {
     expect('4').to.eql(4);
     expect(/a/gmi).to.eql(/a/mig);
 
+    err(function() {
+      expect([]).to.eql(arguments);
+    }, 'expected [] to sort of equal {}');
+
+    err(function() {
+      expect(arguments).to.eql([]);
+    }, 'expected {} to sort of equal []');
+
     err(function () {
       expect(4).to.eql(3);
     }, 'expected 4 to sort of equal 3');

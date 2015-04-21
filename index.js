@@ -326,6 +326,7 @@
    */
 
   Assertion.prototype.match = function (regexp) {
+    if (!regexp.exec) regexp = new RegExp(regexp);
     this.assert(
         regexp.exec(this.obj)
       , function(){ return 'expected ' + i(this.obj) + ' to match ' + regexp }

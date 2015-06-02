@@ -1,0 +1,14 @@
+{
+  "name": "expect.js",
+  "version": "0.3.1",
+  "description": "Minimalistic BDD assertion toolkit based on should.js",
+  "keywords": [
+    "expect.js",
+    "component"
+  ],
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": "Automattic/expect.js"
+}

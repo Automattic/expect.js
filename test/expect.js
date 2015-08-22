@@ -3,6 +3,8 @@
  * Module dependencies.
  */
 
+Promise = require("bluebird");
+
 function err (fn, msg) {
   try {
     fn();
@@ -568,6 +570,22 @@ describe('expect', function () {
     err(function () {
         expect().fail("explicit failure with message");
     }, "explicit failure with message");
+  });
+
+  it('should test a Promise that rejects with a reason', function () {
+    return expect(Promise.reject('Some reason')).to.be.rejectedWith(/Some reason/);
+  });
+
+  it('should test a Promise that resolves with some value', function () {
+    return expect(Promise.resolve({'test': 'value'})).to.be.resolvedWith({'test': 'value'});
+  });
+
+  it('should test negativity with both reject', function () {
+    return expect(Promise.reject('Some reason')).to.not.be.rejectedWith(/Some other reason/);
+  });
+
+  it('should test negativity with reject/resolve', function () {
+    return expect(Promise.reject('Some reason')).to.not.be.resolved();
   });
 
 });

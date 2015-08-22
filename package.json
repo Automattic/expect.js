@@ -12,5 +12,6 @@
   , "devDependencies": {
         "mocha": "*"
       , "serve": "*"
+      , "bluebird": "*"
     }
 }

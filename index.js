@@ -176,6 +176,95 @@
   };
 
   /**
+   * Assert that the Promise was resolved.
+   *
+   * @param object to be asserted with result from Promise
+   * @api public
+   */
+
+  Assertion.prototype.resolved = 
+  Assertion.prototype.resolvedWith = function (val) {
+    expect(this.obj).to.be.a(Promise);
+
+    var that = this;
+    
+    return this.obj.then(function(result) {
+      if (undefined !== val) {
+        that.assert(
+          expect.eql(val, result)
+          , function(){ return 'expected Promise to be resolved with the given value' }
+          , function(){ return 'expected Promise not to be resolved with the given value' });
+      } else {
+        that.assert(
+          true
+          , function(){ return 'expected Promise to be resolved' }
+          , function(){ return 'expected Promise not to be resolved' });
+      } 
+    }).catch(function(e) {
+
+      //on some implementations an assertion thrown in then() gets caught here, throw it back
+      if (/expected Promise (not )?to be resolved/.test(e)) {
+        throw e;
+      }
+
+      that.assert(
+          false
+        , function(){ return 'expected Promise to be resolved' }
+        , function(){ return 'expected Promise not to be resolved' });
+    });
+  };
+
+  /**
+   * Assert that Promise was rejected
+   *
+   * @param {Function|RegExp} callback, or regexp to match error string against
+   * @api public
+   */
+
+  Assertion.prototype.rejected =
+  Assertion.prototype.rejectedWith = function (fn) {
+    expect(this.obj).to.be.a(Promise);
+
+    var not = this.flags.not,
+      that = this;
+    
+    return this.obj.then(function(result) {
+      that.assert(
+          false
+        , function(){ return 'expected Promise to be rejected' }
+        , function(){ return 'expected Promise not to be rejected' });
+    }).catch(function(e) {
+
+      //on some implementations an assertion thrown in then() gets caught here, throw it back
+      if (/expected Promise (not )?to be rejected/.test(e)) {
+        throw e;
+      }
+
+      if (isRegExp(fn)) {
+        var subject = 'string' == typeof e ? e : e.message;
+        if (not) {
+          expect(subject).to.not.match(fn);
+        } else {
+          expect(subject).to.match(fn);
+        }
+      } else if ('function' == typeof fn) {
+        fn(e);
+      }
+
+      if (isRegExp(fn) && not) {
+        // in the presence of a matcher, ensure the `not` only applies to
+        // the matching.
+        that.flags.not = false;
+      }
+
+      that.assert(
+          true
+        , function(){ return 'expected Promise to be rejected' }
+        , function(){ return 'expected Promise not to be rejected' });
+    });
+  };
+
+  /**
    * Checks if the array is empty.
    *
    * @api public

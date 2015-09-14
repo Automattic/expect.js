@@ -570,4 +570,73 @@ describe('expect', function () {
     }, "explicit failure with message");
   });
 
+  it('should test properties (object with key=value)', function(){
+    expect({ foo: 'bar', hello: 42 }).to.have.properties({ foo: 'bar', hello: 42});
+    expect({ foo: 'bar', hello: 42, world: false }).to.have.properties({ foo: 'bar', hello: 42});
+
+    expect({ foo: 'bar'}).not.to.have.properties({ hello: 'world'});
+    expect({ foo: 'bar'}).not.to.have.properties({ foo: 'bar', hello: 'world'});
+    expect({ foo: 'bar'}).not.to.have.properties({ foo: 'world'});
+    expect({ foo: 'bar'}).not.to.have.properties({ hello: 'bar'});
+
+    expect({ foo: undefined}).to.have.properties({ foo: undefined});
+    expect({ foo: 'bar'}).to.not.have.properties({ foo: undefined});
+    expect({}).to.not.have.properties({ foo: undefined});
+
+    expect({ foo: 'bar'}).to.have.properties(undefined);
+    expect({ foo: 'bar'}).not.to.have.properties(undefined);
+
+    expect({ foo: 'bar'}).to.have.properties(null);
+    expect({ foo: 'bar'}).not.to.have.properties(null);
+
+    expect(undefined).not.to.have.properties({ hello: 'world'});
+    expect(null).not.to.have.properties({ hello: 'world'});
+
+    expect(null).to.have.properties(undefined);
+    expect(null).not.to.have.properties(undefined);
+
+    expect(undefined).to.have.properties(undefined);
+    expect(undefined).not.to.have.properties(undefined);
+
+    expect('1').to.have.properties({ length: 1 });
+
+    err(function(){
+      expect({ foo: 'bar'}).to.have.properties({ hello: 'world'});
+    }, "expected { foo: 'bar' } to have properties { hello: 'world' }");
+
+    err(function(){
+      expect({ foo: 'bar'}).to.have.properties({ foo: 'bar', hello: 'world'});
+    }, "expected { foo: 'bar' } to have properties { foo: 'bar', hello: 'world' }");
+
+    err(function(){
+      expect({ foo: 'bar'}).to.have.properties({ foo: 'world'});
+    }, "expected { foo: 'bar' } to have properties { foo: 'world' }");
+
+    err(function(){
+        expect({ foo: 'bar'}).to.have.properties({ hello: 'bar'});
+    }, "expected { foo: 'bar' } to have properties { hello: 'bar' }");
+
+    err(function(){
+        expect(undefined).to.have.properties({ foo: 'bar'});
+    }, "expected undefined to have properties { foo: 'bar' }");
+  });
+
+  it('should test own properties (object with key=value)', function(){
+    function Target(){}
+    Target.prototype.foo = 'bar';
+
+    expect(new Target()).to.have.properties({ foo: 'bar'});
+    expect(new Target()).not.to.have.own.properties({ foo: 'bar'});
+
+    expect({foo: 'bar'}).to.have.own.properties({ foo: 'bar'});
+
+    err(function(){
+      expect(new Target()).to.have.own.properties({ foo: 'bar'});
+    }, "expected {} to have own properties { foo: 'bar' }");
+
+    err(function(){
+      expect({foo: 'bar'}).not.to.have.own.properties({ foo: 'bar'});
+    }, "expected { foo: 'bar' } to not have own properties { foo: 'bar' }");
+  });
+
 });

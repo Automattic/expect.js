@@ -130,6 +130,27 @@ expect({ a: 'b', c: 'd' }).to.only.have.keys(['a', 'c']);
 expect({ a: 'b', c: 'd' }).to.not.only.have.key('a');
 ```
 
+**properties**: asserts the presence of properties and a value. Supports the `own` modifier.
+
+```js
+expect({a: 'b', c: 'd', e: 'f'}).to.have.properties({a: 'b', c: 'd'});
+
+expect({a: 'b', c: 'd', e: 'f'}).not.to.have.properties({a: 'z'});
+expect({a: 'b', c: 'd', e: 'f'}).not.to.have.properties({z: 'z'});
+expect({a: 'b', c: 'd', e: 'f'}).not.to.have.properties({a: 'b', z: 'z'});
+
+function Target(){
+  this.hello = 'world';
+}
+
+Target.prototype.foo = 'bar';
+
+expect(new Target()).to.have.own.properties({ hello: 'world' });
+
+expect(new Target()).not.to.have.own.properties({ foo: 'bar' });
+expect(new Target()).not.to.have.own.properties({ foo: 'bar', hello: 'world' });
+```
+
 **throw**/**throwException**/**throwError**: asserts that the `Function` throws or not when called
 
 ```js

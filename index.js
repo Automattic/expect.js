@@ -398,6 +398,52 @@
     return this;
   };
 
+  Assertion.prototype.properties = function(expected){
+    var testPresence = this.flags.own ? testOwn : testExists,
+      modifier = this.flags.own ? 'own ' : '',
+      that = this;
+
+    that.assert(
+      testProperties(),
+      function(){ return 'expected ' + i(this.obj) + ' to have ' + modifier + 'properties ' + i(expected) },
+      function(){ return 'expected ' + i(this.obj) + ' to not have ' + modifier + 'properties ' + i(expected) }
+    )
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    function testProperties(){
+      var result = true;
+
+      if (expected === null || expected === undefined){
+        return !that.flags.not;
+      }
+
+      for (var key in expected){
+        if (expected.hasOwnProperty(key)){
+          result = testPresence(key) && testValue(key) && result;
+        }
+      }
+
+      return result;
+    }
+
+    function testValue(name){
+      return expected[name] === that.obj[name];
+    }
+
+    function testOwn(name){
+      return that.obj && that.obj.hasOwnProperty(name);
+    }
+
+    function testExists(name){
+      try{
+        return name in that.obj;
+      }catch(e){
+        return that.obj && (that.obj !== undefined);
+      }
+    }
+  }
+
   /**
    * Assert that the array contains _obj_ or string contains _obj_.
    *

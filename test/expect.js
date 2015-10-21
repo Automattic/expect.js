@@ -547,6 +547,7 @@ describe('expect', function () {
   it('should test eql(Set)', function () {
     expect(new Set([1, 2, 3])).to.be.eql(new Set([1, 2, 3]));
     expect(new Set([1, 2, 3])).to.not.be.eql(new Set([1]));
+    expect(new Set([1])).to.not.be.eql(new Set([1, 2, 3]));
     expect(new Set([1, 2, 3])).to.not.be.eql([1, 2, 3]);
     expect([1, 2, 3]).to.not.be.eql(new Set([1, 2, 3]));
     expect(new Set()).to.not.be.eql(null);

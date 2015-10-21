@@ -931,6 +931,11 @@
   var BreakException = {};
 
   function setEquiv (a, b) {
+
+    if (a.size !== b.size) {
+      return false;
+    }
+
     try {
       a.forEach(function (item) {
         if (!b.has(item)) {

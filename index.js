@@ -899,6 +899,11 @@
     // to determine equivalence.
     } else if (isRegExp(actual) && isRegExp(expected)) {
       return regExpEquiv(actual, expected);
+    // If both are the ES6 Set class, use the special `setEquiv` method
+    // to determine equivalence
+    } else if ('undefined' !== typeof Set
+        && actual instanceof Set && expected instanceof Set) {
+      return setEquiv(actual, expected);
     // 7.4. For all other Object pairs, including Array objects, equivalence is
     // determined by having the same number of owned properties (as verified
     // with Object.prototype.hasOwnProperty.call), the same set of keys
@@ -921,6 +926,27 @@
   function regExpEquiv (a, b) {
     return a.source === b.source && a.global === b.global &&
            a.ignoreCase === b.ignoreCase && a.multiline === b.multiline;
+  }
+
+  var BreakException = {};
+
+  function setEquiv (a, b) {
+    try {
+      a.forEach(function (item) {
+        if (!b.has(item)) {
+          // short-circuit by throwing on first difference
+          throw BreakException
+        }
+      });
+    } catch (e) {
+      if (e === BreakException) {
+        return false;
+      } else {
+        // pass on any exceptions that we didn't generate
+        throw e;
+      }
+    }
+    return true;
   }
 
   function objEquiv (a, b) {

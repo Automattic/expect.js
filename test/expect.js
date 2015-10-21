@@ -544,6 +544,14 @@ describe('expect', function () {
     }, "expected { a: 'b', c: 'd' } to only have key 'a'");
   });
 
+  it('should test eql(Set)', function () {
+    expect(new Set([1, 2, 3])).to.be.eql(new Set([1, 2, 3]));
+    expect(new Set([1, 2, 3])).to.not.be.eql(new Set([1]));
+    expect(new Set([1, 2, 3])).to.not.be.eql([1, 2, 3]);
+    expect([1, 2, 3]).to.not.be.eql(new Set([1, 2, 3]));
+    expect(new Set()).to.not.be.eql(null);
+  });
+
   it('should allow chaining with `and`', function () {
     expect(5).to.be.a('number').and.be(5);
     expect(5).to.be.a('number').and.not.be(6);

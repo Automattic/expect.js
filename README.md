@@ -96,6 +96,12 @@ expect([1, 2]).to.contain(1);
 expect('hello world').to.contain('world');
 ```
 
+**containEql**: works like `contain`, but uses the deep equality
+
+```js
+expect([{ a: 1, b: 2 }, { a: 3, b: 4 }]).to.containEql({ a: 1, b: 2 });
+```
+
 **length**: asserts array `.length`
 
 ```js

@@ -463,6 +463,24 @@ describe('expect', function () {
     }, "expected [ 'bar', 'foo' ] to not contain 'foo'");
   });
 
+  it('should test containEql()', function () {
+    expect(['foo', 'bar']).to.containEql('foo');
+    expect([1, 2]).to.containEql(1);
+    expect([{ a: 1, b: 2 }, { a: 3, b: 4 }]).to.containEql({ a: 1, b: 2 });
+
+    expect(['foo', 'bar']).to.not.containEql('baz');
+    expect(['foo', 'bar']).to.not.containEql(1);
+    expect([{ a: 1, b: 2 }, { a: 3, b: 4 }]).to.not.containEql({ a: 5, b: 6 });
+
+    err(function () {
+      expect(['foo']).to.containEql('bar');
+    }, "expected [ 'foo' ] to contain 'bar'");
+
+    err(function () {
+      expect(['bar', 'foo']).to.not.containEql('foo');
+    }, "expected [ 'bar', 'foo' ] to not contain 'foo'");
+  });
+
   it('should test keys(array)', function () {
     expect({ foo: 1 }).to.have.keys(['foo']);
     expect({ foo: 1, bar: 2 }).to.have.keys(['foo', 'bar']);

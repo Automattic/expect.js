@@ -218,7 +218,7 @@ and shown/processed by the test runner.
 Clone the repository and install the developer dependencies:
 
 ```
-git clone git://github.com/LearnBoost/expect.js.git expect
+git clone git://github.com/Automattic/expect.js.git expect
 cd expect && npm install
 ```
 

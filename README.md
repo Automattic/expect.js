@@ -259,5 +259,5 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ### 3rd-party
 
-Heavily borrows from [should.js](http://github.com/visionmedia/should.js) by TJ
+Heavily borrows from [should.js](https://github.com/shouldjs/should.js) by TJ
 Holowaychuck - MIT.

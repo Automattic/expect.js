@@ -81,6 +81,9 @@ expect([]).to.be.an('object'); // works too, since it uses `typeof`
 expect([]).to.be.an(Array);
 expect(tobi).to.be.a(Ferret);
 expect(person).to.be.a(Mammal);
+
+// functions
+expect(function(){ }).to.be.a('function'); 
 ```
 
 **match**: asserts `String` regular expression match

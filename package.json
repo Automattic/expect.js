@@ -13,4 +13,8 @@
         "mocha": "*"
       , "serve": "*"
     }
+  , "repository": {
+        "type": "git"
+      , "url": "https://github.com/LearnBoost/expect.js.git"
+    }
 }

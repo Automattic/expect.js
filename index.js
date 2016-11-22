@@ -237,6 +237,19 @@
   };
 
   /**
+   * Checks if the obj is neither null nor undefined.
+   *
+   * @api public
+   */
+
+  Assertion.prototype.exist = function () {
+    this.assert(
+        null != this.obj
+      , function(){ return 'expected ' + i(this.obj) + ' to exist' }
+      , function(){ return 'expected ' + i(this.obj) + ' to not exist' });
+    return this;
+  };
+  /**
    * Assert within start to finish (inclusive).
    *
    * @param {Number} start

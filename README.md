@@ -47,10 +47,10 @@ Expose the `index.js` found at the top level of this repository.
 **ok**: asserts that the value is _truthy_ or not
 
 ```js
-expect(1).to.be.ok();
-expect(true).to.be.ok();
-expect({}).to.be.ok();
-expect(0).to.not.be.ok();
+expect(1).to.be.ok;
+expect(true).to.be.ok;
+expect({}).to.be.ok;
+expect(0).to.not.be.ok;
 ```
 
 **be** / **equal**: asserts `===` equality

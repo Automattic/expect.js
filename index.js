@@ -387,7 +387,7 @@
 
     if (undefined !== val) {
       this.assert(
-          val === this.obj[name]
+          expect.eql(this.obj[name], val)
         , function(){ return 'expected ' + i(this.obj) + ' to have a property ' + i(name)
           + ' of ' + i(val) + ', but got ' + i(this.obj[name]) }
         , function(){ return 'expected ' + i(this.obj) + ' to not have a property ' + i(name)

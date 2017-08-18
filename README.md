@@ -4,7 +4,7 @@ Minimalistic BDD assertion toolkit based on
 [should.js](http://github.com/visionmedia/should.js)
 
 ```js
-expect(window.r).to.be(undefined);
+expect(window.r).to.equal(undefined);
 expect({ a: 'b' }).to.eql({ a: 'b' })
 expect(5).to.be.a('number');
 expect([]).to.be.an('array');

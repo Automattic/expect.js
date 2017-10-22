@@ -1,6 +1,7 @@
 {
     "name": "expect.js"
   , "version": "0.3.1"
+  , "license": "MIT"
   , "description": "BDD style assertions for node and the browser."
   , "scripts": {
     "test": "mocha --require ./test/common --growl test/expect.js"

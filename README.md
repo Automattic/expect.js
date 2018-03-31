@@ -106,11 +106,11 @@ expect([1,2,3]).to.have.length(3);
 **empty**: asserts that an array is empty or not
 
 ```js
-expect([]).to.be.empty();
-expect({}).to.be.empty();
-expect({ length: 0, duck: 'typing' }).to.be.empty();
-expect({ my: 'object' }).to.not.be.empty();
-expect([1,2,3]).to.not.be.empty();
+expect([]).to.be.empty;
+expect({}).to.be.empty;
+expect({ length: 0, duck: 'typing' }).to.not.be.empty;
+expect({ my: 'object' }).to.not.be.empty;
+expect([1,2,3]).to.not.be.empty;
 ```
 
 **property**: asserts presence of an own property (and value optionally)

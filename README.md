@@ -125,9 +125,9 @@ expect({a: 'b'}).to.have.property('a');
 
 ```js
 expect({ a: 'b' }).to.have.key('a');
-expect({ a: 'b', c: 'd' }).to.only.have.keys('a', 'c');
-expect({ a: 'b', c: 'd' }).to.only.have.keys(['a', 'c']);
-expect({ a: 'b', c: 'd' }).to.not.only.have.key('a');
+expect({ a: 'b', c: 'd' }).to.have.keys('a', 'c');
+expect({ a: 'b', c: 'd' }).to.have.keys(['a', 'c']);
+expect({ a: 'b', c: 'd' }).to.not.have.key('a');
 ```
 
 **throw**/**throwException**/**throwError**: asserts that the `Function` throws or not when called

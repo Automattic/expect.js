@@ -106,11 +106,11 @@ expect([1,2,3]).to.have.length(3);
 **empty**: asserts that an array is empty or not
 
 ```js
-expect([]).to.be.empty();
-expect({}).to.be.empty();
-expect({ length: 0, duck: 'typing' }).to.be.empty();
-expect({ my: 'object' }).to.not.be.empty();
-expect([1,2,3]).to.not.be.empty();
+expect([]).to.be.empty;
+expect({}).to.be.empty;
+expect({ length: 0, duck: 'typing' }).to.not.be.empty;
+expect({ my: 'object' }).to.not.be.empty;
+expect([1,2,3]).to.not.be.empty;
 ```
 
 **property**: asserts presence of an own property (and value optionally)
@@ -125,9 +125,9 @@ expect({a: 'b'}).to.have.property('a');
 
 ```js
 expect({ a: 'b' }).to.have.key('a');
-expect({ a: 'b', c: 'd' }).to.only.have.keys('a', 'c');
-expect({ a: 'b', c: 'd' }).to.only.have.keys(['a', 'c']);
-expect({ a: 'b', c: 'd' }).to.not.only.have.key('a');
+expect({ a: 'b', c: 'd' }).to.have.keys('a', 'c');
+expect({ a: 'b', c: 'd' }).to.have.keys(['a', 'c']);
+expect({ a: 'b', c: 'd' }).to.not.have.key('a');
 ```
 
 **throw**/**throwException**/**throwError**: asserts that the `Function` throws or not when called

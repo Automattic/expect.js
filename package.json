@@ -1,16 +1,33 @@
 {
-    "name": "expect.js"
-  , "version": "0.3.1"
-  , "description": "BDD style assertions for node and the browser."
-  , "scripts": {
-    "test": "mocha --require ./test/common --growl test/expect.js"
+  "name": "expect.js",
+  "version": "0.3.1",
+  "description": "BDD style assertions for node and the browser.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "rollup --config rollup.config.js",
+    "test:es": "mocha --growl test/expect.js",
+    "test:cjs": "npm run build && mocha --growl dist/expect.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LearnBoost/expect.js.git"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "serve": "*",
+    "typescript": "4.1.3"
+  },
+  "dependencies": {
+    "@types/expect.js": "0.3.29"
   }
-  , "repository": {
-        "type": "git",
-        "url": "git://github.com/LearnBoost/expect.js.git"
-    }
-  , "devDependencies": {
-        "mocha": "*"
-      , "serve": "*"
-    }
 }

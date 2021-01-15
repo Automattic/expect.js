@@ -27,8 +27,5 @@
     "mocha": "*",
     "serve": "*",
     "typescript": "4.1.3"
-  },
-  "dependencies": {
-    "@types/expect.js": "0.3.29"
   }
 }

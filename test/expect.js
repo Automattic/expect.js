@@ -568,4 +568,10 @@ describe("expect", function () {
       expect().fail("explicit failure with message")
     }, "explicit failure with message")
   })
+
+  it("should allow passing a an error message", function () {
+    err(function () {
+      expect(true, "not what you expect").to.be(false)
+    }, "not what you expect")
+  })
 })

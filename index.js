@@ -22,18 +22,30 @@ const flags = {
   be: ["an"],
 }
 
-export function expect(obj) {
-  return new Assertion(obj)
-}
+/**
+ * @typedef {keyof flags} Flag
+ */
 
 /**
- * Constructor
- *
- * @api private
+ * @param {any} [obj]
+ * @param {string} [message]
  */
+export function expect(obj, message) {
+  return new Assertion(obj, message)
+}
+
 export class Assertion {
-  constructor(obj, flag, parent) {
+  /**
+   * @private
+   *
+   * @param {any} obj
+   * @param {string} [message]
+   * @param {Flag} [flag]
+   * @param {Assertion} [parent]
+   */
+  constructor(obj, message, flag, parent) {
     this.obj = obj
+    this.message = message
     this.flags = {}
 
     if (undefined != parent) {
@@ -55,7 +67,7 @@ export class Assertion {
         if (this.flags[$flags[i]]) continue
 
         var name = $flags[i],
-          assertion = new Assertion(this.obj, name, this)
+          assertion = new Assertion(this.obj, this.message, name, this)
 
         if ("function" == typeof Assertion.prototype[name]) {
           // clone the function, make sure we dont touch the prot reference
@@ -80,6 +92,10 @@ export class Assertion {
    * Performs an assertion
    *
    * @private
+   * @param {boolean} thruth
+   * @param {(assert:Assertion) => string} msg
+   * @param {(assert:Assertion) => string} error
+   * @param {any} expected
    */
 
   assert(truth, msg, error, expected) {
@@ -88,7 +104,7 @@ export class Assertion {
       err
 
     if (!ok) {
-      err = new Error(msg.call(this))
+      err = new Error(this.message || msg.call(this))
       if (arguments.length > 3) {
         err.actual = this.obj
         err.expected = expected
@@ -97,7 +113,7 @@ export class Assertion {
       throw err
     }
 
-    this.and = new Assertion(this.obj)
+    this.and = new Assertion(this.obj, this.message)
   }
 
   /**

@@ -1,6 +1,4 @@
-import { Assertion } from "."
-
-interface Assertion {
+export interface Assertion {
   /**
    * Check if the value is truthy
    */
@@ -189,6 +187,8 @@ interface Assertion {
    * Assert a failure.
    */
   fail(message?: string): Assertion
+
+  and: Assertion
 }
 
 interface Expect extends Assertion {
@@ -247,9 +247,11 @@ interface An extends Assertion {
 interface Include extends Assertion {}
 
 declare var expect: {
-  (target?: any): Expect
+  (actual?: any, message?: string): Expect
   version: string
   stringify(value: any, showHidden?: boolean, depth?: number): string
   eql(actual: any, expected: any): boolean
 }
+
+export { expect }
 export default expect

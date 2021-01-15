@@ -15,6 +15,7 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "rollup --config rollup.config.js",
+    "test": "npm run test:es && npm run test:cjs",
     "test:es": "mocha --growl test/expect.js",
     "test:cjs": "npm run build && mocha --growl dist/expect.cjs"
   },

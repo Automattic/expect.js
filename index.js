@@ -876,6 +876,8 @@
     // 7.1. All identical values are equivalent, as determined by ===.
     if (actual === expected) {
       return true;
+    } else if(typeof actual !== typeof expected) {
+      return false;
     } else if ('undefined' != typeof Buffer
       && Buffer.isBuffer(actual) && Buffer.isBuffer(expected)) {
       if (actual.length != expected.length) return false;

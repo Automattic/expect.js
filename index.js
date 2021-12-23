@@ -492,6 +492,25 @@
   };
 
   /**
+   * Assert being within [center-eps, center+eps] inclusive
+   *
+   * @param {Number} center
+   * @param {Number} eps
+   * @api public
+   */
+
+  Assertion.prototype.closeTo = function (center, eps) {
+    let start = center - eps;
+    let end = center + eps;
+    let range = start + '..' + end;
+    this.assert(
+        start <= this.obj && this.obj <= end
+        , function(){ return 'expected ' + i(this.obj) + ' to be within ' + range }
+        , function(){ return 'expected ' + i(this.obj) + ' to not be within ' + range });
+    return this;
+  };
+
+  /**
    * Function bind implementation.
    */
 

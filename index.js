@@ -924,6 +924,10 @@
   }
 
   function objEquiv (a, b) {
+    // type checking
+    if (typeof a != typeof b){
+      return false;
+    }
     if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
       return false;
     // an identical "prototype" property.

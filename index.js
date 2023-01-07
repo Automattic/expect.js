@@ -237,6 +237,19 @@
   };
 
   /**
+   * Checks if the string equals another case insensitively.
+   */
+
+  Assertion.prototype.equalCaseInsensitive = function (obj) {
+    this.assert(
+        expect.equalCaseInsensitive(this.obj, obj)
+        , function(){ return 'expected ' + i(this.obj) + ' to be equal case insensitively ' + i(obj) }
+        , function(){ return 'expected ' + i(this.obj) + ' to be not equal case insensitively ' + i(obj) }
+        , obj);
+    return this;
+  };
+
+  /**
    * Assert within start to finish (inclusive).
    *
    * @param {Number} start
@@ -908,6 +921,26 @@
     } else {
       return objEquiv(actual, expected);
     }
+  };
+
+  /**
+   * Asserts strings equality case-insensitive
+   */
+
+  expect.equalCaseInsensitive = function equalCaseInsensitive(actual, expected) {
+    // check if values are string
+    if (typeof actual != "string" && typeof expected != "string"){
+      throw new Error(`values are not string, actual value is a ${typeof actual} and expected value is a ${typeof expected}`);
+    } else if (typeof actual != "string"){
+      throw new Error(`actual value is not string, it's a ${typeof actual}`);
+    } else if (typeof expected != "string"){
+      throw new Error(`expected value is not string, it's a ${typeof expected}`);
+    }
+
+    // check values equality case-insensitive
+    const lowerCaseActual = actual.toLowerCase();
+    const lowerCaseExpected = expected.toLowerCase();
+    return lowerCaseActual === lowerCaseExpected;
   };
 
   function isUndefinedOrNull (value) {

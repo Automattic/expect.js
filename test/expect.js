@@ -313,6 +313,20 @@ describe('expect', function () {
     }, "expected 'asd' to not have a length of 3");
   });
 
+  it('should test length without input', function () {
+    expect('test').to.have.length();
+    expect('test').to.not.have.length();
+    expect([1,2,3]).to.have.length();
+
+    err(function () {
+      expect(4).to.have.length();
+    }, 'expected 4 to have a property \'length\'');
+
+    err(function () {
+      expect('asd').to.not.have.length();
+    }, "expected 'asd' to not have a length of 3");
+  });
+
   it('should test eql(val)', function () {
     expect('test').to.eql('test');
     expect({ foo: 'bar' }).to.eql({ foo: 'bar' });

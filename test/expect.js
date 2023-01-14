@@ -570,4 +570,9 @@ describe('expect', function () {
     }, "explicit failure with message");
   });
 
+  it('should not fail with duplicate to.have.property assertions', function () {
+    var y = expect({ a : 1, b : 2 });
+    y.to.have.property("a", 1);
+    y.to.have.property("b", 2);
+  });
 });

@@ -336,13 +336,14 @@
   /**
    * Assert property "length" exists and has value of _n_.
    *
-   * @param {Number} n
+   * @param {Number|undefined} n
    * @api public
    */
 
   Assertion.prototype.length = function (n) {
     expect(this.obj).to.have.property('length');
     var len = this.obj.length;
+    n = n === undefined ? 0 : n;
     this.assert(
         n == len
       , function(){ return 'expected ' + i(this.obj) + ' to have a length of ' + n + ' but got ' + len }

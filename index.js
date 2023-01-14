@@ -394,7 +394,6 @@
           + ' of ' + i(val) });
     }
 
-    this.obj = this.obj[name];
     return this;
   };
 
